@@ -1,0 +1,36 @@
+<div class="app-container">
+  <header class="app-header">
+    <h1>{{ title() }}</h1>
+    <p class="subtitle">Gerenciador de projetos e tarefas com GraphQL</p>
+  </header>
+
+  <main>
+    <section *ngIf="loading">Carregando projetos...</section>
+
+    <section *ngIf="!loading && errorMessage">
+      <p class="error">{{ errorMessage }}</p>
+    </section>
+
+    <section *ngIf="!loading && !errorMessage && projects.length === 0">
+      <p>Nenhum projeto encontrado.</p>
+    </section>
+
+    <section *ngIf="!loading && !errorMessage && projects.length > 0">
+      <ul class="project-list">
+        <li *ngFor="let p of projects" class="project-card">
+          <h2>{{ p.name }}</h2>
+          <p>{{ p.description || 'Sem descrição' }}</p>
+          <small>
+            Dono: {{ p.owner?.name }} ({{ p.owner?.email }})
+          </small>
+          <br />
+          <small>Criado em: {{ p.createdAt | date : 'short' }}</small>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Se um dia quiser usar routes:
+    <router-outlet></router-outlet>
+    -->
+  </main>
+</div>
