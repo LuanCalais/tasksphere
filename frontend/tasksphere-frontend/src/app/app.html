@@ -1,30 +1,73 @@
+
 <div class="app-container">
   <header class="app-header">
-    <h1>{{ title() }}</h1>
-    <p class="subtitle">Gerenciador de projetos e tarefas com GraphQL</p>
+    <div class="header-content">
+      <div class="icon-wrapper">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 11L12 14L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="header-text">
+        <h1>{{ title() }}</h1>
+        <p class="subtitle">Gerenciador de projetos e tarefas com GraphQL</p>
+      </div>
+    </div>
   </header>
 
   <main>
-    <section *ngIf="loading">Carregando projetos...</section>
+    <section *ngIf="loading" class="loading-section">
+      <div class="loading-spinner"></div>
+      <p>Carregando projetos...</p>
+    </section>
 
-    <section *ngIf="!loading && errorMessage">
+    <section *ngIf="!loading && errorMessage" class="error-section">
+      <div class="error-icon">⚠</div>
       <p class="error">{{ errorMessage }}</p>
     </section>
 
-    <section *ngIf="!loading && !errorMessage && projects.length === 0">
+    <section *ngIf="!loading && !errorMessage && projects.length === 0" class="empty-section">
+      <div class="empty-icon">📋</div>
       <p>Nenhum projeto encontrado.</p>
+      <p class="empty-subtitle">Comece criando seu primeiro projeto!</p>
     </section>
 
     <section *ngIf="!loading && !errorMessage && projects.length > 0">
+      <div class="projects-header">
+        <h2>Seus Projetos</h2>
+        <span class="project-count">{{ projects.length }} {{ projects.length === 1 ? 'projeto' : 'projetos' }}</span>
+      </div>
+      
       <ul class="project-list">
         <li *ngFor="let p of projects" class="project-card">
-          <h2>{{ p.name }}</h2>
-          <p>{{ p.description || 'Sem descrição' }}</p>
-          <small>
-            Dono: {{ p.owner?.name }} ({{ p.owner?.email }})
-          </small>
-          <br />
-          <small>Criado em: {{ p.createdAt | date : 'short' }}</small>
+          <div class="card-header">
+            <h3>{{ p.name }}</h3>
+            <span class="card-badge">Ativo</span>
+          </div>
+          
+          <p class="project-description">{{ p.description || 'Sem descrição' }}</p>
+          
+          <div class="card-footer">
+            <div class="owner-info">
+              <div class="avatar">{{ p.owner?.name?.charAt(0) }}</div>
+              <div class="owner-details">
+                <span class="owner-name">{{ p.owner?.name }}</span>
+                <span class="owner-email">{{ p.owner?.email }}</span>
+              </div>
+            </div>
+            
+            <div class="project-meta">
+              <span class="meta-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                {{ p.createdAt | date : 'dd/MM/yyyy' }}
+              </span>
+            </div>
+          </div>
         </li>
       </ul>
     </section>

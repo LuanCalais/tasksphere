@@ -3,6 +3,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ProjectsService } from './features/projects/services';
 import { Project } from '@core/models/project';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -18,18 +19,20 @@ export class App implements OnInit {
   loading = true;
   errorMessage: string | null = null;
 
-  constructor(private projectsService : ProjectsService) {}
+  constructor(private projectsService: ProjectsService) {}
 
   ngOnInit(): void {
-    this.projectsService.getProjects().subscribe({
-      next: (projects) => {
-        this.projects = projects;
-      },
-      error: (error) => {
-        console.error('Error fetching projects:', error);
-        this.errorMessage = 'Erro ao carregar projetos.';
-        this.loading = false;
-      }
-    });
+    this.projectsService
+      .getProjects()
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: (projects) => {
+          this.projects = projects;
+        },
+        error: (error) => {
+          console.error('Error fetching projects:', error);
+          this.errorMessage = 'Erro ao carregar projetos.';
+        },
+      });
   }
 }
