@@ -1,4 +1,4 @@
-import { PrismaClientContext } from "../features/prisma/types";
+import { PrismaClientContext } from "../features/prisma";
 import { User, UserQueryArgs } from "../features/user/types";
 
 export const userResolvers = {
