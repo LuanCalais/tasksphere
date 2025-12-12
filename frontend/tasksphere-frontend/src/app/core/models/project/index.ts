@@ -1,5 +1,5 @@
-import { Task } from "../task/types";
-import { User } from "../user/types";
+import { Task } from "../task";
+import { User } from "../user";
 
 export interface Project {
     id?: number | null;

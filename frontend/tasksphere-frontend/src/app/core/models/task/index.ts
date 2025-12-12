@@ -1,5 +1,5 @@
-import { Project } from "../project/types";
-import { User } from "../user/types";
+import { Project } from "../project";
+import { User } from "../user";
 import { TaskStatus } from "./enums";
 
 export interface Task {
