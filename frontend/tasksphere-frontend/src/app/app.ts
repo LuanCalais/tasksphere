@@ -4,11 +4,12 @@ import { RouterOutlet } from '@angular/router';
 import { ProjectsService } from './features/projects/services';
 import { Project } from '@core/models/project';
 import { finalize } from 'rxjs';
+import { NavbarComponent } from '@shared/components/navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, NavbarComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

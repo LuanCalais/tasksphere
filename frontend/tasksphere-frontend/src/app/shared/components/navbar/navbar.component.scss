@@ -1,0 +1,42 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #e5e5e5;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 10;
+}
+.brand {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-weight: 700;
+}
+.logo {
+  img {
+    height: 35px;
+    width: 35px;
+  }
+  display: flex;
+  align-items: center;
+  justify-self: center;
+}
+.links {
+  display: flex;
+  gap: 1rem;
+}
+a {
+  text-decoration: none;
+  color: #333;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+}
+a.active {
+  background: #f2f2f2;
+}
+a:hover {
+  background: #f7f7f7;
+}
