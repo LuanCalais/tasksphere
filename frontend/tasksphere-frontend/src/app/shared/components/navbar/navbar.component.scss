@@ -34,9 +34,10 @@ a {
   padding: 0.4rem 0.6rem;
   border-radius: 8px;
 }
+
+a:hover,
 a.active {
-  background: #f2f2f2;
+  background: var(--color-accent-hover);
+  color: var(--color-light);
 }
-a:hover {
-  background: #f7f7f7;
-}
+

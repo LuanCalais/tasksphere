@@ -1,1 +1,87 @@
-/* You can add global styles to this file, and also import other style files */
+/* ==================== VARIÁVEIS DE CORES ==================== */
+:root {
+  --color-primary: #0f0326;
+  --color-accent: #e65f5c;
+  --color-light: #f5f7dc;
+
+  /* Variações */
+  --color-primary-light: rgba(15, 3, 38, 0.8);
+  --color-primary-lighter: rgba(15, 3, 38, 0.1);
+  --color-accent-light: rgba(230, 95, 92, 0.1);
+  --color-accent-hover: #d54d4a;
+
+  /* Sombras */
+  --shadow-sm: 0 2px 8px rgba(15, 3, 38, 0.08);
+  --shadow-md: 0 4px 16px rgba(15, 3, 38, 0.12);
+  --shadow-lg: 0 8px 24px rgba(15, 3, 38, 0.15);
+}
+
+/* ==================== FRONT FAMILY PRINCIPAL ==================== */
+* {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ==================== CONTAINER PRINCIPAL ==================== */
+.app-container {
+  margin: 0 auto;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--color-light) 0%, #ffffff 100%);
+  min-height: 100vh;
+}
+
+/* ==================== HEADER ==================== */
+.app-header {
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.icon-wrapper {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.header-text h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  margin: 0.5rem 0 0;
+  color: var(--color-primary-light);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.btn {
+  background: var(--color-primary);
+  color: var(--color-light);
+  padding: 0.55rem 0.85rem;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  width: fit-content;
+}
+.btn:hover {
+  opacity: 0.9;
+}

@@ -1,0 +1,26 @@
+<header-component
+  title="Projetos"
+  subtitle="Organize e gerencie seus projetos"
+  iconPath="icons/bag-icon.svg"
+  iconAlt="bag-icon"
+>
+  <a class="btn" routerLink="/projects/new">+ Criar projeto</a>
+</header-component>
+
+<section *ngIf="loading">Carregando...</section>
+
+<section *ngIf="!loading && errorMessage" class="error">
+  {{ errorMessage }}
+</section>
+
+<section *ngIf="!loading && !errorMessage && projects.length === 0">
+  Nenhum projeto encontrado.
+</section>
+
+<ul class="list" *ngIf="!loading && !errorMessage && projects.length > 0">
+  <li class="card" *ngFor="let p of projects">
+    <h2>{{ p.name }}</h2>
+    <p>{{ p.description || 'Sem descrição' }}</p>
+    <small *ngIf="p.owner">Dono: {{ p.owner.name }} ({{ p.owner.email }})</small>
+  </li>
+</ul>
