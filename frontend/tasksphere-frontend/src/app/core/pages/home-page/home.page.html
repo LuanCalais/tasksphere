@@ -5,3 +5,20 @@
 >
   <a class="btn" routerLink="/projects">Meus projetos</a>
 </header-component>
+
+<carousel-component
+  [totalItems]="CAROUSEL_HOME_PAGE_BANNERS.length"
+  [itemsPerPage]="1"
+  [gap]="12"
+  [showDots]="true"
+  [showControls]="false"
+  [loop]="true"
+>
+  <img
+    *ngFor="let b of CAROUSEL_HOME_PAGE_BANNERS"
+    class="banner"
+    [src]="b.src"
+    [alt]="b.alt"
+    loading="lazy"
+  />
+</carousel-component>

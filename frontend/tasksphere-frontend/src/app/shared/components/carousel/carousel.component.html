@@ -1,0 +1,56 @@
+<section class="carousel" [attr.aria-label]="ariaLabel">
+  <header class="carousel__header" *ngIf="title || showControls">
+    <div class="carousel__title" *ngIf="title">
+      <h2>{{ title }}</h2>
+      <p class="carousel__subtitle" *ngIf="subtitle">{{ subtitle }}</p>
+    </div>
+
+    <div class="carousel__controls" *ngIf="showControls">
+      <button
+        type="button"
+        class="btn"
+        (click)="prev()"
+        [disabled]="isPrevDisabled()"
+        aria-label="Anterior"
+      >
+        ‹
+      </button>
+
+      <button
+        type="button"
+        class="btn"
+        (click)="next()"
+        [disabled]="isNextDisabled()"
+        aria-label="Próximo"
+      >
+        ›
+      </button>
+    </div>
+  </header>
+
+  <div class="carousel__viewport" #viewport>
+    <div
+      class="carousel__track"
+      [style.transform]="transform()"
+      [style.gap.px]="gap"
+      [style.padding.px]="trackPadding"
+      (pointerdown)="onPointerDown($event)"
+      (pointermove)="onPointerMove($event)"
+      (pointerup)="onPointerUp($event)"
+      (pointercancel)="onPointerUp($event)"
+    >
+      <ng-content></ng-content>
+    </div>
+  </div>
+
+  <footer class="carousel__footer" *ngIf="showDots && pageCount() > 1">
+    <button
+      type="button"
+      class="dot"
+      *ngFor="let _ of dotsArray(); let i = index"
+      (click)="goTo(i)"
+      [class.dot--active]="i === currentPage()"
+      [attr.aria-label]="'Ir para página ' + (i + 1)"
+    ></button>
+  </footer>
+</section>
