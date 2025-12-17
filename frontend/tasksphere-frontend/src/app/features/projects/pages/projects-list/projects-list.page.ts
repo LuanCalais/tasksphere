@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { HeaderComponent } from '@app/shared/components/header/header.component';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { NavigationService } from '@core/services/navigation.service';
+import { HeaderComponent } from '@shared/components/header/header.component';
 import { Project } from '@core/models/project';
 import { ProjectsService } from '@features/projects/services';
 import { finalize } from 'rxjs';
@@ -10,14 +12,14 @@ import { finalize } from 'rxjs';
   standalone: true,
   templateUrl: './projects-list.page.html',
   styleUrl: './projects-list.page.scss',
-  imports: [CommonModule, HeaderComponent],
+  imports: [CommonModule, HeaderComponent, RouterLink, RouterLinkActive],
 })
 export class ProjectsListPage implements OnInit {
   projects: Project[] = [];
   loading = false;
   errorMessage: string | null = null;
 
-  constructor(private projectsService: ProjectsService) {}
+  constructor(private projectsService: ProjectsService, public nav: NavigationService) {}
 
   ngOnInit(): void {
     this.projectsService

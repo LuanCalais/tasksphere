@@ -4,7 +4,10 @@
   iconPath="icons/bag-icon.svg"
   iconAlt="bag-icon"
 >
-  <a class="btn" routerLink="/projects/new">+ Criar projeto</a>
+  <div class="header-buttons-container">
+    <a class="btn" routerLink="/projects/new">Criar projeto</a>
+    <a class="btn secondary" routerLink="nav.routeBack()">Voltar</a>
+  </div>
 </header-component>
 
 <section *ngIf="loading">Carregando...</section>

@@ -3,6 +3,7 @@
   --color-primary: #0f0326;
   --color-accent: #e65f5c;
   --color-light: #f5f7dc;
+  --color-error: #b00020;
 
   /* Variações */
   --color-primary-light: rgba(15, 3, 38, 0.8);
@@ -73,6 +74,15 @@
   font-weight: 400;
 }
 
+.header-buttons-container {
+  height: fit-content;
+  display: flex;
+  column-gap: 6px;
+  max-height: 37.59px;
+}
+
+/* ==================== BUTTONS ==================== */
+
 .btn {
   background: var(--color-primary);
   color: var(--color-light);
@@ -81,7 +91,26 @@
   text-decoration: none;
   cursor: pointer;
   width: fit-content;
+  max-height: 37.59px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: normal;
 }
+
+.secondary {
+  background-color: var(--color-light);
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+.secondary:hover {
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  border: 2px solid var(--color-primary);
+}
+
 .btn:hover {
   opacity: 0.9;
 }
