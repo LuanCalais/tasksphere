@@ -1,23 +1,10 @@
 import { Injectable } from '@angular/core';
-import { gql, Apollo } from 'apollo-angular';
+import { Apollo } from 'apollo-angular';
 import { map, Observable } from 'rxjs';
 import { Project } from '@core/models/project';
-
-const GET_PROJECTS = gql`
-  query GetProjects {
-    projects {
-      id
-      name
-      description
-      createdAt
-      owner {
-        id
-        name
-        email
-      }
-    }
-  }
-`;
+import { GET_PROJECTS } from '../queries';
+import { CreateProjectInput } from '@core/types/project';
+import { CREATE_PROJECT } from '../mutations';
 
 @Injectable({
   providedIn: 'root',
@@ -26,9 +13,24 @@ export class ProjectsService {
   constructor(private apollo: Apollo) {}
 
   getProjects(): Observable<Project[] | any[]> {
-    return this.apollo.watchQuery<{ projects: Project[] }>({
+    return this.apollo
+      .watchQuery<{ projects: Project[] }>({
         query: GET_PROJECTS,
-    })
-    .valueChanges.pipe(map((result) => result.data?.projects || []));
+      })
+      .valueChanges.pipe(map((result) => result.data?.projects || []));
+  }
+
+  createProject(input: CreateProjectInput): Observable<Project> {
+    return this.apollo
+      .mutate<{ createProject: Project }>({
+        mutation: CREATE_PROJECT,
+        variables: {
+          name: input.name,
+          description: input.description ?? null,
+          ownerId: String(input.ownerId),
+        },
+        refetchQueries: [{ query: GET_PROJECTS }],
+      })
+      .pipe(map((r) => r.data!.createProject));
   }
 }

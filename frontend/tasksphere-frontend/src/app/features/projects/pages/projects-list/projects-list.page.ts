@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { NavigationService } from '@core/services/navigation.service';
 import { HeaderComponent } from '@shared/components/header/header.component';
 import { Project } from '@core/models/project';
@@ -12,7 +12,7 @@ import { finalize } from 'rxjs';
   standalone: true,
   templateUrl: './projects-list.page.html',
   styleUrl: './projects-list.page.scss',
-  imports: [CommonModule, HeaderComponent, RouterLink, RouterLinkActive],
+  imports: [CommonModule, HeaderComponent, RouterLink],
 })
 export class ProjectsListPage implements OnInit {
   projects: Project[] = [];

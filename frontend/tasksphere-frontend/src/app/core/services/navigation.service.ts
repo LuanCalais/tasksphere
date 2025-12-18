@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { formatRoute } from '@shared/utils/route';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +11,11 @@ export class NavigationService {
 
   routeBack() {
     this.location.back();
+  }
+
+  goToRoute(route: string) {
+    const formatedRoute = formatRoute(route);
+    this.router.navigateByUrl(formatedRoute);
   }
 
   routeBackOrGoTo(route: string) {

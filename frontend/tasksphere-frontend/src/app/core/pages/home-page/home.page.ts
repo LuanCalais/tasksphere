@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { CarouselComponent } from '@shared/components/carousel/carousel.component';
 import { Project } from '@core/models/project';
 import { ProjectsService } from '@features/projects/services';
@@ -13,7 +13,7 @@ import { HOME_PAGE_BANNERS } from '@app/shared/constants';
   standalone: true,
   templateUrl: './home.page.html',
   styleUrl: './home.page.scss',
-  imports: [RouterLink, RouterLinkActive, HeaderComponent, CarouselComponent, CommonModule],
+  imports: [RouterLink, HeaderComponent, CarouselComponent, CommonModule],
 })
 export class HomePage implements OnInit {
   

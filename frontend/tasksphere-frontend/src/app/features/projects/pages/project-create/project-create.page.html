@@ -9,3 +9,41 @@
     <button class="btn secondary" (click)="nav.routeBack()">Voltar</button>
   </div>
 </header-component>
+
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <label>
+    Nome
+    <input type="text" formControlName="name" placeholder="Ex: Projeto Portfólio" />
+  </label>
+
+  <label>
+    Descrição (opcional)
+    <textarea
+      rows="4"
+      formControlName="description"
+      placeholder="Do que se trata esse projeto?"
+    ></textarea>
+  </label>
+
+  <!-- TODO: Alterar para uma lista com o ID real do responsável -->
+  <label>
+    OwnerId
+    <input type="number" formControlName="ownerId" />
+  </label>
+
+  <div class="actions">
+    <button class="btn" type="submit" [disabled]="form.invalid || submitting">
+      {{ submitting ? 'Criando...' : 'Criar' }}
+    </button>
+    <button
+      class="btn secondary"
+      type="button"
+      (click)="nav.goToRoute('/projects')"
+      [disabled]="submitting"
+    >
+      Cancelar
+    </button>
+  </div>
+
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+</form>
