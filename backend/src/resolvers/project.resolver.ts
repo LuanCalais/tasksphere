@@ -3,9 +3,18 @@ import { Project } from "../features/project/types";
 
 export const projectResolvers = {
   Query: {
-    projects: (_: unknown, __: unknown, { prisma }: PrismaClientContext) =>
-      prisma.project.findMany(),
+    projects: async (_: unknown, __: unknown, { prisma }: PrismaClientContext) => {
+      try {
+        const projects = await prisma.project.findMany({
+          orderBy: { createdAt: "desc" },
+        });
 
+        return projects ?? [];
+      } catch (error) {
+        console.error("Error Query.projects: ", error);
+        return [];
+      }
+    },
     project: (
       _: unknown,
       { id }: { id: string },
@@ -19,11 +28,15 @@ export const projectResolvers = {
       { name, description, ownerId }: Project,
       { prisma }: PrismaClientContext
     ) => {
+      console.log("Creating project with ownerId:", ownerId);
       return prisma.project.create({
         data: {
           name,
           description,
           ownerId: Number(ownerId),
+        },
+        include: {
+          owner: true,
         },
       });
     },
