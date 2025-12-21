@@ -1,38 +1,43 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NavigationService } from '@core/services/navigation.service';
 import { HeaderComponent } from '@shared/components/header/header.component';
 import { Project } from '@core/models/project';
 import { ProjectsService } from '@features/projects/services';
-import { finalize } from 'rxjs';
+import { SkeletonComponent } from '@app/shared/components/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-projects-list-page',
   standalone: true,
   templateUrl: './projects-list.page.html',
   styleUrl: './projects-list.page.scss',
-  imports: [CommonModule, HeaderComponent, RouterLink],
+  imports: [CommonModule, HeaderComponent, RouterLink, SkeletonComponent],
 })
 export class ProjectsListPage implements OnInit {
   projects: Project[] = [];
   loading = false;
   errorMessage: string | null = null;
 
-  constructor(private projectsService: ProjectsService, public nav: NavigationService) {}
+  constructor(private projectsService: ProjectsService, public nav: NavigationService, private cdr: ChangeDetectorRef) {}
+
+  canShowContent(): boolean {
+    return !this.loading && !this.errorMessage;
+  }
 
   ngOnInit(): void {
-    this.projectsService
-      .getProjects()
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: (projects) => {
-          this.projects = projects;
-        },
-        error: (error) => {
-          console.error('Error fetching projects:', error);
-          this.errorMessage = 'Erro ao carregar projetos.';
-        },
-      });
+    this.loading = true;
+    this.projectsService.getProjects().subscribe({
+      next: (projects) => {
+        this.projects = projects;
+        this.loading = false;
+        this.cdr.detectChanges(); 
+      },
+      error: (error) => {
+        console.error('Error fetching projects:', error);
+        this.errorMessage = 'Erro ao carregar projetos.';
+        this.cdr.detectChanges(); 
+      },
+    });
   }
 }

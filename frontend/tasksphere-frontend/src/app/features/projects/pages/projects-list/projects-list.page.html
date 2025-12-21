@@ -10,20 +10,22 @@
   </div>
 </header-component>
 
-<section *ngIf="loading">Carregando...</section>
-
-<section *ngIf="!loading && errorMessage" class="error">
-  {{ errorMessage }}
+<section *ngIf="loading; else content">
+  <app-skeleton></app-skeleton>
 </section>
 
-<section *ngIf="!loading && !errorMessage && projects.length === 0">
-  Nenhum projeto encontrado.
-</section>
+<ng-template #content>
+  <section *ngIf="!loading && errorMessage" class="error">
+    {{ errorMessage }}
+  </section>
 
-<ul class="list" *ngIf="!loading && !errorMessage && projects.length > 0">
-  <li class="card" *ngFor="let p of projects">
-    <h2>{{ p.name }}</h2>
-    <p>{{ p.description || 'Sem descrição' }}</p>
-    <small *ngIf="p.owner">Dono: {{ p.owner.name }} ({{ p.owner.email }})</small>
-  </li>
-</ul>
+  <section *ngIf="!canShowContent() && projects.length === 0">Nenhum projeto encontrado.</section>
+
+  <ul class="list" *ngIf="canShowContent() && projects.length > 0">
+    <li class="card" *ngFor="let p of projects; let i = index" [ngClass]="{ variant: i % 2 !== 0 }">
+      <h2>{{ p.name }}</h2>
+      <p>{{ p.description || 'Sem descrição' }}</p>
+      <small *ngIf="p.owner">Dono: {{ p.owner.name }} ({{ p.owner.email }})</small>
+    </li>
+  </ul>
+</ng-template>

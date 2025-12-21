@@ -1,0 +1,52 @@
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  margin: 15px 0 15px 0;
+}
+
+.sk {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  background: rgba(37, 37, 37, 0.2);
+}
+
+.sk::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+  animation: shimmer 1.1s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.h2 {
+  height: 22px;
+  width: 52%;
+  margin-bottom: 12px;
+}
+.p {
+  height: 14px;
+  width: 90%;
+  margin-bottom: 10px;
+}
+.p.short {
+  width: 70%;
+}
+.small {
+  height: 12px;
+  width: 45%;
+  margin-top: 14px;
+  opacity: 0.9;
+}
