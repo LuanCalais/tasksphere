@@ -3,7 +3,11 @@ import { Project } from "../features/project/types";
 
 export const projectResolvers = {
   Query: {
-    projects: async (_: unknown, __: unknown, { prisma }: PrismaClientContext) => {
+    projects: async (
+      _: unknown,
+      __: unknown,
+      { prisma }: PrismaClientContext
+    ) => {
       try {
         const projects = await prisma.project.findMany({
           orderBy: { createdAt: "desc" },
@@ -39,6 +43,24 @@ export const projectResolvers = {
           owner: true,
         },
       });
+    },
+
+    deleteProject: async (
+      _: unknown,
+      { id }: { id: string },
+      { prisma }: PrismaClientContext
+    ) => {
+      console.log("Deleting project with id:", id);
+      try {
+        const deletedProject = await prisma.project.delete({
+          where: { id: Number(id) },
+        });
+        console.log("Deleted project:", deletedProject);
+        return deletedProject;
+      } catch (e) {
+        console.error("Error deleting project:", e);
+        throw new Error("Could not delete project");
+      }
     },
   },
 
