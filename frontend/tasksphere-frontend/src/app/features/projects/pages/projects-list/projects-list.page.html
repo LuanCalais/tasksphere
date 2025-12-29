@@ -22,10 +22,14 @@
   <section *ngIf="!canShowContent() && projects.length === 0">Nenhum projeto encontrado.</section>
 
   <ul class="list" *ngIf="canShowContent() && projects.length > 0">
-    <li class="card" *ngFor="let p of projects; let i = index" [ngClass]="{ variant: i % 2 !== 0 }">
-      <h2>{{ p.name }}</h2>
-      <p>{{ p.description || 'Sem descrição' }}</p>
-      <small *ngIf="p.owner">Dono: {{ p.owner.name }} ({{ p.owner.email }})</small>
+    <li *ngFor="let p of projects; let i = index" [ngClass]="{ variant: i % 2 !== 0 }">
+      <project-card
+        [name]="p.name"
+        [ownerName]="p.owner?.name || ''"
+        [ownerEmail]="p.owner?.email || ''"
+        [isVariant]="i % 2 !== 0"
+      >
+      </project-card>
     </li>
   </ul>
 </ng-template>

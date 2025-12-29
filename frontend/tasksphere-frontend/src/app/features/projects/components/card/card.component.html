@@ -1,0 +1,17 @@
+<div class="card" [ngClass]="{ variant: isVariant() }">
+  <div class="close-button">
+    <button aria-label="Fechar" (click)="showConfirmModal = true">
+      <lucide-icon [img]="XIcon" [size]="20"></lucide-icon>
+    </button>
+  </div>
+  <h2>{{ name() }}</h2>
+  <h2>{{ isVariant() }}</h2>
+  <p>{{ description() || 'Sem descrição' }}</p>
+  <small *ngIf="ownerName()">Dono: {{ ownerName() }} - ({{ ownerEmail() }}) </small>
+</div>
+
+<confirm-modal
+  *ngIf="showConfirmModal"
+  (confirm)="confirmDelete()"
+  (cancel)="closeModal()"
+></confirm-modal>

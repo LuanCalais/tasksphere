@@ -6,13 +6,14 @@ import { HeaderComponent } from '@shared/components/header/header.component';
 import { Project } from '@core/models/project';
 import { ProjectsService } from '@features/projects/services';
 import { SkeletonComponent } from '@app/shared/components/skeleton/skeleton.component';
+import { CardComponent } from '@features/projects/components/card/card.component';
 
 @Component({
   selector: 'app-projects-list-page',
   standalone: true,
   templateUrl: './projects-list.page.html',
   styleUrl: './projects-list.page.scss',
-  imports: [CommonModule, HeaderComponent, RouterLink, SkeletonComponent],
+  imports: [CommonModule, HeaderComponent, RouterLink, SkeletonComponent, CardComponent],
 })
 export class ProjectsListPage implements OnInit {
   projects: Project[] = [];
