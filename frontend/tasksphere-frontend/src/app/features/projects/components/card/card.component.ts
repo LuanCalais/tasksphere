@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { LucideAngularModule, X } from 'lucide-angular';
 
@@ -11,11 +11,13 @@ import { LucideAngularModule, X } from 'lucide-angular';
   imports: [CommonModule, LucideAngularModule, ConfirmModalComponent],
 })
 export class CardComponent {
+  id = input<number | undefined>();
   name = input<string>('');
   description = input<string>('');
   ownerName = input<string>('');
   ownerEmail = input<string>('');
   isVariant = input<boolean>(false);
+  confirmAction = output<number | undefined>();
   readonly XIcon = X;
 
   showConfirmModal = false;
@@ -29,7 +31,8 @@ export class CardComponent {
   }
 
   confirmDelete() {
-    alert('Projeto deletado!');
+    if (!this.id()) return;
     this.showConfirmModal = false;
+    this.confirmAction.emit(this.id());
   }
 }

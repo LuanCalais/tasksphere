@@ -20,10 +20,27 @@ export class ProjectsListPage implements OnInit {
   loading = false;
   errorMessage: string | null = null;
 
-  constructor(private projectsService: ProjectsService, public nav: NavigationService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private projectsService: ProjectsService,
+    public nav: NavigationService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   canShowContent(): boolean {
     return !this.loading && !this.errorMessage;
+  }
+
+  deleteProject(id: number | undefined): void {
+    if (!id) return;
+    this.loading = true;
+    this.projectsService.deleteProject(id as number).subscribe({
+      next: () => {
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+      },
+    });
   }
 
   ngOnInit(): void {
@@ -32,12 +49,12 @@ export class ProjectsListPage implements OnInit {
       next: (projects) => {
         this.projects = projects;
         this.loading = false;
-        this.cdr.detectChanges(); 
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error fetching projects:', error);
         this.errorMessage = 'Erro ao carregar projetos.';
-        this.cdr.detectChanges(); 
+        this.cdr.detectChanges();
       },
     });
   }

@@ -52,6 +52,14 @@ export const projectResolvers = {
     ) => {
       console.log("Deleting project with id:", id);
       try {
+        const existingProject = await prisma.project.findUnique({
+          where: { id: Number(id) },
+        });
+
+        if (!existingProject) {
+          throw new Error(`Project with id ${id} not found`);
+        }
+
         const deletedProject = await prisma.project.delete({
           where: { id: Number(id) },
         });
@@ -59,7 +67,7 @@ export const projectResolvers = {
         return deletedProject;
       } catch (e) {
         console.error("Error deleting project:", e);
-        throw new Error("Could not delete project");
+        throw new Error("Could not delete project" + e);
       }
     },
   },

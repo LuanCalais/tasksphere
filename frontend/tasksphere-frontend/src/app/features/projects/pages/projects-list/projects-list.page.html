@@ -19,17 +19,21 @@
     {{ errorMessage }}
   </section>
 
-  <section *ngIf="!canShowContent() && projects.length === 0">Nenhum projeto encontrado.</section>
+  <section *ngIf="!loading && projects.length === 0">Nenhum projeto encontrado.</section>
 
   <ul class="list" *ngIf="canShowContent() && projects.length > 0">
     <li *ngFor="let p of projects; let i = index" [ngClass]="{ variant: i % 2 !== 0 }">
-      <project-card
-        [name]="p.name"
-        [ownerName]="p.owner?.name || ''"
-        [ownerEmail]="p.owner?.email || ''"
-        [isVariant]="i % 2 !== 0"
-      >
-      </project-card>
+      <span *ngIf="p.id">
+        <project-card
+          [id]="p.id"
+          [name]="p.name"
+          [ownerName]="p.owner?.name || ''"
+          [ownerEmail]="p.owner?.email || ''"
+          [isVariant]="i % 2 !== 0"
+          (confirmAction)="deleteProject($event)"
+        >
+        </project-card>
+      </span>
     </li>
   </ul>
 </ng-template>
