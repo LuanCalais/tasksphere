@@ -7,7 +7,11 @@ export const userResolvers = {
       return prisma.user.findMany();
     },
 
-    user: async (_: unknown, { id }: UserQueryArgs, { prisma }: PrismaClientContext) => {
+    user: async (
+      _: unknown,
+      { id }: UserQueryArgs,
+      { prisma }: PrismaClientContext
+    ) => {
       return prisma.user.findUnique({ where: { id: Number(id) } });
     },
   },
@@ -15,13 +19,14 @@ export const userResolvers = {
   Mutation: {
     createUser: async (
       _: unknown,
-      { name, email }: User,
+      { name, email, profilePictureUrl }: User,
       { prisma }: PrismaClientContext
     ) => {
       return prisma.user.create({
         data: {
           name,
           email,
+          profilePictureUrl,
         },
       });
     },

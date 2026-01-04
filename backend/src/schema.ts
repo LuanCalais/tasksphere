@@ -13,6 +13,7 @@ export const typeDefs = gql`
     email: String!
     projects: [Project!]!
     tasks: [Task!]!
+    profilePictureUrl: String!
     createdAt: String!
   }
 
@@ -46,7 +47,7 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    createUser(name: String!, email: String!): User!
+    createUser(name: String!, email: String!, profilePictureUrl: String): User!
     createProject(name: String!, description: String, ownerId: ID!): Project!
     deleteProject(id: ID!): Project!
     createTask(title: String!, projectId: ID!, assigneeId: ID, dueDate: String): Task!

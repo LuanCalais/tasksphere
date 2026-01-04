@@ -1,7 +1,8 @@
 export interface User {
-    id?: number;
-    name: string;
-    email: string;
+  id?: number;
+  name: string;
+  email: string;
+  profilePictureUrl?: string;
 }
 
 export interface UserQueryArgs {
