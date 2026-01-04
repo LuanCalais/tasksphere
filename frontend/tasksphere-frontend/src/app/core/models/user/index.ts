@@ -1,5 +1,7 @@
 export interface User {
-    id?: number | null;
-    name: string;
-    email: string;
+  id?: number;
+  name: string;
+  isActive: boolean;
+  email: string;
+  profilePictureUrl?: string;
 }

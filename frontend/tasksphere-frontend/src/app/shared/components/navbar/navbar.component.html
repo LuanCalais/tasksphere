@@ -1,18 +1,19 @@
 <nav class="nav">
   <div class="brand">
     <span class="logo">
-        <img src="core-images/tasksphere-logo.png" alt="TaskSphere Logo" />
+      <img src="core-images/tasksphere-logo.png" alt="TaskSphere Logo" />
     </span>
     <span class="name">TaskSphere</span>
   </div>
 
   <div class="links">
-    <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-      Início
+    <a
+      *ngFor="let r of appRoutes; let i = index"
+      [routerLink]="r.path"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      {{ r.title }}
     </a>
-    <a routerLink="/projects" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-      Projetos
-    </a>
-    <a routerLink="/projects/new" routerLinkActive="active"> Criar projeto </a>
   </div>
 </nav>

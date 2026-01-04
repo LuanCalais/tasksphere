@@ -1,0 +1,31 @@
+<header-component
+  title="Usuários"
+  subtitle="Organize e gerencie seus usuários"
+  iconPath="icons/bag-icon.svg"
+  iconAlt="bag-icon"
+>
+  <div class="header-buttons-container">
+    <a class="btn" routerLink="/users/new">Criar usuário</a>
+    <a class="btn secondary" routerLink="nav.routeBack()">Voltar</a>
+  </div>
+</header-component>
+
+<section *ngIf="loading; else content">
+  <app-skeleton></app-skeleton>
+</section>
+
+<ng-template #content>
+  <section *ngIf="!loading && errorMessage" class="error">
+    {{ errorMessage }}
+  </section>
+
+  <section *ngIf="!loading && users.length === 0">Nenhum usuário encontrado.</section>
+
+  <ul class="list" *ngIf="canShowContent() && users.length > 0">
+    <li *ngFor="let u of users; let i = index" [ngClass]="{ variant: i % 2 !== 0 }">
+      <span *ngIf="u.id">
+        {{ u.name }} - {{ u.email }}
+      </span>
+    </li>
+  </ul>
+</ng-template>

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { map, Observable } from 'rxjs';
 import { Project } from '@core/models/project';
-import { GET_PROJECTS } from '../queries';
+import { GET_PROJECTS } from '@features/projects/queries';
 import { CreateProjectInput } from '@core/types/project';
-import { CREATE_PROJECT, DELETE_PROJECT } from '../mutations';
+import { CREATE_PROJECT, DELETE_PROJECT } from '@features/projects/mutations';
 
 @Injectable({
   providedIn: 'root',

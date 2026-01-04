@@ -3,8 +3,15 @@ import { User, UserQueryArgs } from "../features/user/types";
 
 export const userResolvers = {
   Query: {
-    users: async (_: unknown, __: unknown, { prisma }: PrismaClientContext) => {
-      return prisma.user.findMany();
+    users: async (
+      _: unknown,
+      args: { isActive?: boolean },
+      { prisma }: PrismaClientContext
+    ) => {
+      const where =
+        args.isActive !== undefined ? { isActive: args.isActive } : {};
+
+      return prisma.user.findMany({ where });
     },
 
     user: async (

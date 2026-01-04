@@ -14,6 +14,7 @@ export const typeDefs = gql`
     projects: [Project!]!
     tasks: [Task!]!
     profilePictureUrl: String!
+    isActive: Boolean!
     createdAt: String!
   }
 
@@ -38,7 +39,7 @@ export const typeDefs = gql`
   }
 
   type Query {
-    users: [User!]!
+    users(isActive: Boolean): [User!]!
     user(id: ID!): User
 
     projects: [Project!]!
