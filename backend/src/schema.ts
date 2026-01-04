@@ -20,6 +20,7 @@ export const typeDefs = gql`
   type Project {
     id: ID!
     name: String!
+    isActive: Boolean!
     description: String
     owner: User!
     tasks: [Task!]!
@@ -48,6 +49,7 @@ export const typeDefs = gql`
 
   type Mutation {
     createUser(name: String!, email: String!, profilePictureUrl: String): User!
+    deleteUser(id: ID!): User!
     createProject(name: String!, description: String, ownerId: ID!): Project!
     deleteProject(id: ID!): Project!
     createTask(title: String!, projectId: ID!, assigneeId: ID, dueDate: String): Task!

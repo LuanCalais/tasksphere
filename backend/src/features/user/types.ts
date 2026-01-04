@@ -1,6 +1,7 @@
 export interface User {
   id?: number;
   name: string;
+  isActive: boolean;
   email: string;
   profilePictureUrl?: string;
 }
