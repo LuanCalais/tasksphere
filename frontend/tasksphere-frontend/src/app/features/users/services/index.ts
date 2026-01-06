@@ -21,14 +21,17 @@ export class UsersService {
       .valueChanges.pipe(map((result) => result.data?.users || []));
   }
 
-  createUser(input: CreateUserInput): Observable<User> {
+  createUser(input: CreateUserInput, file?: File): Observable<User> {
     return this.apollo
       .mutate<{ createUser: User }>({
         mutation: CREATE_USER,
         variables: {
           name: input.name,
           email: input.email,
-          profilePictureUrl: input.profilePictureUrl ?? null,
+          profilePicture: file || null,
+        },
+        context: {
+          useMultipart: true,
         },
         refetchQueries: [{ query: GET_USERS}]
       })

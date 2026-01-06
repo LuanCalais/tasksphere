@@ -4,4 +4,5 @@ export interface User {
   isActive: boolean;
   email: string;
   profilePictureUrl?: string;
+  profilePicture?: File | null;
 }

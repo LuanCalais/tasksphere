@@ -77,14 +77,16 @@ export class UserCreatePage {
     this.submitting = true;
     this.errorMessage = null;
 
-    const { name, email, profilePicture } = this.form.value;
+    const { name, email } = this.form.value;
 
     this.usersService
-      .createUser({
-        name: name!,
-        email: email!,
-        profilePictureUrl: profilePicture || undefined,
-      })
+      .createUser(
+        {
+          name: name!,
+          email: email!,
+        },
+        this.selectedFile || undefined
+      )
       .subscribe({
         next: (user: User) => {
           console.log('User created successfully', user);
