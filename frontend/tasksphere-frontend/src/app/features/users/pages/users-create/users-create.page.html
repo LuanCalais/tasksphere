@@ -18,18 +18,41 @@
 
   <label>
     E-mail
-    <textarea
-      rows="4"
-      formControlName="email"
-      placeholder="maria_laura@mail.com"
-    ></textarea>
+    <textarea rows="4" formControlName="email" placeholder="maria_laura@mail.com"></textarea>
   </label>
 
-  <!-- TODO: Alterar para input file -->
-  <label>
-    Foto de perfil
-    <input type="text" formControlName="profilePicture" />
-  </label>
+  <div class="file-input-wrapper">
+    <div class="file-input-label">Foto de perfil</div>
+
+    <div *ngIf="!selectedFile">
+      <input
+        type="file"
+        accept=".png"
+        (change)="onFileSelected($event)"
+        class="file-input"
+        id="profile-picture"
+      />
+
+      <label for="profile-picture" class="file-input-button">
+        <img src="icons/upload-file.svg" alt="upload-file-icon" />
+        <span>{{ 'Escolher arquivo PNG' }}</span>
+      </label>
+    </div>
+
+    <div *ngIf="selectedFile && imagePreviewUrl" class="file-previewer">
+      <div class="preview-info">
+        <span class="preview-filename">{{ selectedFileName }}</span>
+      </div>
+      <span class="preview-image-container">
+        <button aria-label="Fechar" class="btn-remove-preview" (click)="removeFile()">
+          <lucide-icon [img]="XIcon" [size]="20"></lucide-icon>
+        </button>
+        <div class="preview-image-wrapper">
+          <img [src]="imagePreviewUrl" alt="Preview da foto de perfil" class="preview-image" />
+        </div>
+      </span>
+    </div>
+  </div>
 
   <div class="actions">
     <button class="btn" type="submit" [disabled]="form.invalid || submitting">

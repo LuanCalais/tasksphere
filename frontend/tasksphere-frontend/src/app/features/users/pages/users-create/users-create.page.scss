@@ -8,7 +8,7 @@ label {
 }
 input,
 textarea {
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-neutral);
   border-radius: 10px;
   padding: 0.65rem 0.75rem;
   font: inherit;
@@ -22,4 +22,182 @@ textarea {
 .error {
   color: var(--color-error);
   margin: 0;
+}
+
+.file-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.file-input-label {
+  flex: 1;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-input-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.75rem;
+  border: 2px dashed var(--color-neutral);
+  border-radius: 10px;
+  background-color: var(--color-light);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--color-primary-variant);
+  font-size: 0.95rem;
+
+  &:hover {
+    border-color: var(--color-primary-variant);
+    background-color: var(--color-light);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.file-input:not(:placeholder-shown) + .file-input-button,
+.file-input-wrapper:has(.remove-file-btn) .file-input-button {
+  border-color: var(--color-success-variant);
+  background-color: var(--color-light);
+  color: var(--color-success);
+
+  img {
+    width: 34px;
+  }
+}
+
+.remove-file-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--color-primary-variant);
+  border-radius: 8px;
+  background-color: var(--color-light);
+  color: var(--color-accent);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+
+  svg {
+    transition: transform 0.2s ease;
+  }
+
+  &:hover {
+    background-color: var(--color-neutral);
+    border-color: var(--color-accent);
+
+    svg {
+      transform: rotate(90deg);
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// Preview styles
+.file-preview {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--color-neutral);
+  border-radius: 10px;
+  background-color: var(--color-light);
+  align-items: center;
+}
+
+.preview-image-wrapper {
+  flex-shrink: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  overflow: hidden;
+  border: 2px solid var(--color-primary-variant);
+  background-color: var(--color-light);
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.file-previewer {
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.preview-image-container {
+  position: relative;
+  width: fit-content;
+
+  .preview-filename {
+    font-size: 0.95rem;
+    color: var(--color-primary);
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .btn-remove-preview {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: 34px;
+    width: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-error);
+    border-radius: 100%;
+    background-color: var(--color-light);
+    color: var(--color-error);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 600;
+    position: absolute;
+    right: 0;
+
+    svg {
+      flex-shrink: 0;
+    }
+
+    &:hover {
+      background-color: var(--color-error);
+      color: var(--color-light);
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+}
+
+.preview-image-container:hover .btn-remove-preview {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
 }
