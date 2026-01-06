@@ -1,0 +1,49 @@
+<header-component
+  title="Criar Usuário"
+  subtitle="Crie e organize seus usuários"
+  iconPath="icons/create-user.svg"
+  iconAlt="create-user-icon"
+>
+  <div class="header-buttons-container">
+    <a class="btn" routerLink="/users">Usuários disponíveis</a>
+    <button class="btn secondary" (click)="nav.routeBack()">Voltar</button>
+  </div>
+</header-component>
+
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <label>
+    Nome
+    <input type="text" formControlName="name" placeholder="Ex: Maria Laura" />
+  </label>
+
+  <label>
+    E-mail
+    <textarea
+      rows="4"
+      formControlName="email"
+      placeholder="maria_laura@mail.com"
+    ></textarea>
+  </label>
+
+  <!-- TODO: Alterar para input file -->
+  <label>
+    Foto de perfil
+    <input type="text" formControlName="profilePicture" />
+  </label>
+
+  <div class="actions">
+    <button class="btn" type="submit" [disabled]="form.invalid || submitting">
+      {{ submitting ? 'Criando...' : 'Criar' }}
+    </button>
+    <button
+      class="btn secondary"
+      type="button"
+      (click)="nav.goToRoute('/users')"
+      [disabled]="submitting"
+    >
+      Cancelar
+    </button>
+  </div>
+
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+</form>

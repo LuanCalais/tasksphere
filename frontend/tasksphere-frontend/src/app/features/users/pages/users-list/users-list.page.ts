@@ -3,9 +3,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NavigationService } from '@core/services/navigation.service';
 import { HeaderComponent } from '@shared/components/header/header.component';
-import { SkeletonComponent } from '@app/shared/components/skeleton/skeleton.component';
-import { CardComponent } from '@features/projects/components/card/card.component';
-import { User } from '@app/core/models/user';
+import { SkeletonComponent } from '@shared/components/skeleton/skeleton.component';
+import { User } from '@core/models/user';
 import { UsersService } from '@features/users/services';
 
 @Component({
@@ -13,8 +12,10 @@ import { UsersService } from '@features/users/services';
   standalone: true,
   templateUrl: './users-list.page.html',
   styleUrl: './users-list.page.scss',
-  imports: [CommonModule, HeaderComponent, RouterLink, SkeletonComponent, CardComponent],
+  imports: [CommonModule, HeaderComponent, RouterLink, SkeletonComponent],
 })
+
+// CardComponent
 export class UsersListPage implements OnInit {
   users: User[] = [];
   loading = false;
