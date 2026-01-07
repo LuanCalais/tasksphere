@@ -4,6 +4,7 @@ import { ApolloServer } from "apollo-server-express";
 import { typeDefs } from "./graphql/schema";
 import { resolvers } from "./graphql/resolvers";
 import { PrismaClient } from "@prisma/client";
+import { registerRoutes } from "./http/routes";
 
 const prisma = new PrismaClient();
 const PORT = process.env.PORT || 4000;
@@ -13,7 +14,7 @@ async function start() {
 
   app.use(express.json());
 
-  
+  registerRoutes(app);
 
   const server = new ApolloServer({
     typeDefs,
