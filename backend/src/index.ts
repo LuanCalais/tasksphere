@@ -5,12 +5,22 @@ import { typeDefs } from "./graphql/schema";
 import { resolvers } from "./graphql/resolvers";
 import { PrismaClient } from "@prisma/client";
 import { registerRoutes } from "./http/routes";
+import cors from "cors";
 
 const prisma = new PrismaClient();
 const PORT = process.env.PORT || 4000;
 
 async function start() {
   const app = express();
+
+  app.use(
+    cors({
+      origin: ["http://localhost:4200", "http://localhost:4201"],
+      credentials: true,
+      methods: ["POST"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+    })
+  );
 
   app.use(express.json());
 

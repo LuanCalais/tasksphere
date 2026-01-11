@@ -23,19 +23,29 @@ export class UsersService {
       .valueChanges.pipe(map((result) => result.data?.users || []));
   }
   createUser(input: CreateUserInput, file?: File): Observable<User> {
-    const upload$: Observable<UploadResponse | null> = file
-      ? this.uploadService.uploadFile(file)
-      : of(null);
+    if (!file) {
+      return this.apollo
+        .mutate<{ createUser: User }>({
+          mutation: CREATE_USER,
+          variables: {
+            name: input.name,
+            email: input.email,
+            profilePictureUrl: null,
+          },
+          refetchQueries: [{ query: GET_USERS }],
+        })
+        .pipe(map((result) => result.data!.createUser));
+    }
 
-    return upload$.pipe(
-      switchMap((uploadResponse: any) => {
+    return this.uploadService.uploadFile(file).pipe(
+      switchMap((uploadResponse) => {
         return this.apollo
           .mutate<{ createUser: User }>({
             mutation: CREATE_USER,
             variables: {
               name: input.name,
               email: input.email,
-              profilePicture: uploadResponse?.fileUrl || null,
+              profilePictureUrl: uploadResponse.fileUrl,
             },
             refetchQueries: [{ query: GET_USERS }],
           })
