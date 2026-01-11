@@ -6,7 +6,10 @@
   </div>
   <h2>{{ name() }}</h2>
   <p>{{ description() || 'Sem descrição' }}</p>
-  <small *ngIf="ownerName()">Dono: {{ ownerName() }} - ({{ ownerEmail() }}) </small>
+  <div class="owner-section">
+    <img class="avatar" [src]="ownerImage()" [alt]="ownerName()" />
+    <small *ngIf="ownerName()">Dono: {{ ownerName() }} - ({{ ownerEmail() }}) </small>
+  </div>
 </div>
 
 <confirm-modal

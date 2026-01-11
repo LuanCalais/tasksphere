@@ -27,8 +27,10 @@
         <project-card
           [id]="p.id"
           [name]="p.name"
+          [description]="p.description"
           [ownerName]="p.owner?.name || ''"
           [ownerEmail]="p.owner?.email || ''"
+          [ownerImage]="p.owner?.profilePictureUrl || ''"
           [isVariant]="i % 2 !== 0"
           (confirmAction)="deleteProject($event)"
         >

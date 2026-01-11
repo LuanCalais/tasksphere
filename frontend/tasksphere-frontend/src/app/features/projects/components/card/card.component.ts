@@ -15,6 +15,7 @@ export class CardComponent {
   name = input<string>('');
   description = input<string>('');
   ownerName = input<string>('');
+  ownerImage = input<string>('');
   ownerEmail = input<string>('');
   isVariant = input<boolean>(false);
   confirmAction = output<number | undefined>();
