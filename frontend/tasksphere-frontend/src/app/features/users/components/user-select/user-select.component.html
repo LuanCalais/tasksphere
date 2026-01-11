@@ -1,0 +1,72 @@
+<label class="field">
+  <span class="label">{{ label }}</span>
+
+  <div
+    class="control"
+    [class.disabled]="disabled"
+    (click)="toggle()"
+    role="button"
+    tabindex="0"
+  >
+    <ng-container *ngIf="selected; else placeholderTpl">
+      <div class="user-row">
+        <img
+          *ngIf="selected?.avatarUrl; else fallbackAvatar"
+          class="avatar"
+          [src]="selected?.avatarUrl!"
+          [alt]="selected?.name"
+        />
+        <ng-template #fallbackAvatar>
+          <div class="avatar fallback">{{ initials(selected!.name) }}</div>
+        </ng-template>
+
+        <div class="meta">
+          <div class="name">{{ selected?.name }}</div>
+          <div class="email">{{ selected?.email }}</div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #placeholderTpl>
+      <span class="placeholder">{{ placeholder }}</span>
+    </ng-template>
+
+    <div class="actions">
+      <button
+        class="icon-btn"
+        type="button"
+        (click)="clear($event)"
+        [disabled]="disabled || !value"
+        aria-label="Limpar seleção"
+      >
+        ✕
+      </button>
+      <span class="chev" [class.open]="open">▾</span>
+    </div>
+  </div>
+
+  <div class="dropdown" *ngIf="open">
+    <button
+      type="button"
+      class="option"
+      *ngFor="let u of options"
+      (click)="select(u)"
+    >
+      <div class="user-row">
+        <img *ngIf="u.avatarUrl; else fallback" class="avatar" [src]="u.avatarUrl" [alt]="u.name" />
+        <ng-template #fallback>
+          <div class="avatar fallback">{{ initials(u.name) }}</div>
+        </ng-template>
+
+        <div class="meta">
+          <div class="name">{{ u.name }}</div>
+          <div class="email">{{ u.email }}</div>
+        </div>
+      </div>
+    </button>
+
+    <div class="empty" *ngIf="options.length === 0">
+      Nenhum usuário disponível.
+    </div>
+  </div>
+</label>

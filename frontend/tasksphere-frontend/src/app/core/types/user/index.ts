@@ -12,3 +12,10 @@ export interface CreateUserInput {
   email: string;
   profilePictureUrl?: string | null;
 }
+
+export type UserOption = {
+  id: number | string;
+  name: string;
+  email: string;
+  avatarUrl?: string | null;
+};

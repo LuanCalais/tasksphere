@@ -1,0 +1,133 @@
+.field {
+  display: grid;
+  gap: 0.35rem;
+  position: relative;
+}
+
+.label {
+  font-weight: 500;
+}
+
+.control {
+  border: 1px solid var(--color-neutral);
+  border-radius: 10px;
+  padding: 0.55rem 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  background: var(--color-light);
+  cursor: pointer;
+  min-height: 46px;
+}
+
+.control.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.placeholder {
+  opacity: 0.7;
+}
+
+.user-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  object-fit: cover;
+  flex: 0 0 34px;
+}
+
+.avatar.fallback {
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--color-neutral);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.meta {
+  display: grid;
+  line-height: 1.1;
+  min-width: 0;
+}
+
+.name {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.email {
+  font-size: 0.82rem;
+  opacity: 0.75;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.icon-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  opacity: 0.7;
+  padding: 0.25rem 0.35rem;
+}
+.icon-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.chev {
+  transition: transform 120ms ease;
+  display: inline-block;
+  opacity: 0.75;
+}
+.chev.open {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  z-index: 50;
+  left: 0;
+  right: 0;
+  top: calc(100% + 6px);
+  border: 1px solid var(--color-neutral);
+  border-radius: 12px;
+  background: var(--color-light);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.option {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  padding: 0.55rem 0.65rem;
+  cursor: pointer;
+}
+.option:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.empty {
+  padding: 0.75rem;
+  opacity: 0.7;
+}

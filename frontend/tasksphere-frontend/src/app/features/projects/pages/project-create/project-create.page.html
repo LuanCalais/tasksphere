@@ -25,11 +25,13 @@
     ></textarea>
   </label>
 
-  <!-- TODO: Alterar para uma lista com o ID real do responsável -->
-  <label>
-    OwnerId
-    <input type="number" formControlName="ownerId" />
-  </label>
+  <app-user-select
+    formControlName="ownerId"
+    [label]="'Owner'"
+    [placeholder]="loadingUsers ? 'Carregando usuários...' : 'Selecione um responsável'"
+    [options]="users"
+    [disabled]="loadingUsers || submitting"
+  ></app-user-select>
 
   <div class="actions">
     <button class="btn" type="submit" [disabled]="form.invalid || submitting">

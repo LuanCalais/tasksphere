@@ -11,6 +11,7 @@ export const GET_PROJECTS = gql`
         id
         name
         email
+        profilePictureUrl
       }
     }
   }
