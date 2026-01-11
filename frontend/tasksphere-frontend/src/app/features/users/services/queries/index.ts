@@ -1,17 +1,14 @@
 import { gql } from 'apollo-angular';
 
-export const GET_PROJECTS = gql`
-  query GetProjects {
-    projects {
-      id
+export const GET_USERS = gql`
+  query GetUsers {
+    users(isActive: true) {
       name
-      description
+      id
       createdAt
-      owner {
-        id
-        name
-        email
-      }
+      email
+      profilePictureUrl
+      isActive
     }
   }
 `;

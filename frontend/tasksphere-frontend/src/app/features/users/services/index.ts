@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { map, Observable, of, switchMap } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 import { User } from '@core/models/user';
-import { GET_USERS } from '@features/users/queries';
 import { CreateUserInput } from '@core/types/user';
 import { CREATE_USER } from '@features/users/services/mutations';
 import { UploadService } from '@features/upload/services';
-import { UploadResponse } from '@app/core/types/upload';
+import { GET_USERS } from './queries';
 
 @Injectable({
   providedIn: 'root',
