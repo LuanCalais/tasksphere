@@ -11,18 +11,18 @@
     <ng-container *ngIf="selected; else placeholderTpl">
       <div class="user-row">
         <img
-          *ngIf="selected?.avatarUrl; else fallbackAvatar"
+          *ngIf="selected.avatarUrl; else fallbackAvatar"
           class="avatar"
-          [src]="selected?.avatarUrl!"
-          [alt]="selected?.name"
+          [src]="selected.avatarUrl!"
+          [alt]="selected.name"
         />
         <ng-template #fallbackAvatar>
           <div class="avatar fallback">{{ initials(selected!.name) }}</div>
         </ng-template>
 
         <div class="meta">
-          <div class="name">{{ selected?.name }}</div>
-          <div class="email">{{ selected?.email }}</div>
+          <div class="name">{{ selected.name }}</div>
+          <div class="email">{{ selected.email }}</div>
         </div>
       </div>
     </ng-container>

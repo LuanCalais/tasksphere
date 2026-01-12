@@ -22,9 +22,15 @@
   <section *ngIf="!loading && users.length === 0">Nenhum usuário encontrado.</section>
 
   <ul class="list" *ngIf="canShowContent() && users.length > 0">
-    <li *ngFor="let u of users; let i = index" [ngClass]="{ variant: i % 2 !== 0 }">
+    <li *ngFor="let u of users; let i = index">
       <span *ngIf="u.id">
-        {{ u.name }} - {{ u.email }}
+        <user-card
+          [id]="u.id"
+          [name]="u.name"
+          [email]="u.email"
+          [isVariant]="i % 2 !== 0"
+          [image]="u?.profilePictureUrl || ''"
+        ></user-card>
       </span>
     </li>
   </ul>

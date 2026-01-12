@@ -5,7 +5,7 @@ import { NavigationService } from '@core/services/navigation.service';
 import { HeaderComponent } from '@shared/components/header/header.component';
 import { Project } from '@core/models/project';
 import { ProjectsService } from '@features/projects/services';
-import { SkeletonComponent } from '@app/shared/components/skeleton/skeleton.component';
+import { SkeletonComponent } from '@shared/components/skeleton/skeleton.component';
 import { CardComponent } from '@features/projects/components/card/card.component';
 
 @Component({

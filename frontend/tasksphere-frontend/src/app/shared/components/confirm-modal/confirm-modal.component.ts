@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { LucideAngularModule, X } from 'lucide-angular';
 
 @Component({
@@ -13,6 +13,7 @@ export class ConfirmModalComponent {
   readonly XIcon = X;
   confirm = output<void>();
   cancel = output<void>();
+  label = input<string>('');
 
   onConfirm() {
     this.confirm.emit();

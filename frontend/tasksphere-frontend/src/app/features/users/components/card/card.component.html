@@ -4,17 +4,20 @@
       <lucide-icon [img]="XIcon" [size]="20"></lucide-icon>
     </button>
   </div>
-  <h2>{{ name() }}</h2>
-  <p>{{ description() || 'Sem descrição' }}</p>
-  <div class="owner-section">
-    <img class="avatar" [src]="ownerImage()" [alt]="ownerName()" />
-    <small *ngIf="ownerName()">Dono: {{ ownerName() }} - ({{ ownerEmail() }}) </small>
+
+  <div class="profile-information-container">
+    <img class="avatar" [src]="image()" [alt]="name()" />
+
+    <span>
+      <h2>{{ name() }}</h2>
+      <p>{{ email() }}</p>
+    </span>
   </div>
 </div>
 
 <confirm-modal
   *ngIf="showConfirmModal"
-  label="Tem certeza que deseja excluir este projeto?"
+  label="Tem certeza que deseja excluir este usuário?"
   (confirm)="confirmDelete()"
   (cancel)="closeModal()"
 ></confirm-modal>
