@@ -7,13 +7,36 @@
   </div>
 
   <div class="links">
-    <a
-      *ngFor="let r of appRoutes; let i = index"
-      [routerLink]="r.path"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }"
-    >
-      {{ r.title }}
-    </a>
+    <div *ngFor="let item of navItems" class="nav-item" [class.has-children]="hasChildren(item)">
+      <a
+        *ngIf="!hasChildren(item)"
+        [routerLink]="item.route.path"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        {{ item.route.title }}
+      </a>
+
+      <div *ngIf="hasChildren(item)" class="dropdown-wrapper">
+        <button
+          class="dropdown-trigger"
+          (click)="toggleDropdown(item, $event)"
+          [class.active]="item.isOpen"
+        >
+          {{ item.route.title }}
+          <span class="arrow" [class.open]="item.isOpen">▾</span>
+        </button>
+        <div class="dropdown-menu" *ngIf="item.isOpen">
+          <a
+            *ngFor="let child of item.route.children"
+            [routerLink]="getRoute(item.route.path, child.path)"
+            (click)="closeDropdown(item)"
+            class="dropdown-item"
+          >
+            {{ child.title || 'Ver todos' }}
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </nav>

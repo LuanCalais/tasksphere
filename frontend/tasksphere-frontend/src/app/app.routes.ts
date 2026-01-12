@@ -5,7 +5,7 @@ import { ProjectCreatePage } from './features/projects/pages/project-create/proj
 import { UsersListPage } from './features/users/pages/users-list/users-list.page';
 import { UserCreatePage } from './features/users/pages/users-create/users-create.page';
 
-const customRoutes: Routes  = [
+const customRoutes: Routes = [
   {
     path: '',
     title: 'Início',
@@ -14,22 +14,32 @@ const customRoutes: Routes  = [
   {
     path: 'projects',
     title: 'Projetos',
-    component: ProjectsListPage,
-  },
-  {
-    path: 'projects/new',
-    title: 'Criar Projeto',
-    component: ProjectCreatePage,
+    children: [
+      {
+        path: '',
+        component: ProjectsListPage,
+      },
+      {
+        path: 'new',
+        title: 'Criar Projeto',
+        component: ProjectCreatePage,
+      },
+    ],
   },
   {
     path: 'users',
     title: 'Usuários',
-    component: UsersListPage,
-  },
-  {
-    path: 'users/new',
-    title: 'Criar Usuário',
-    component: UserCreatePage,
+    children: [
+      {
+        path: '',
+        component: UsersListPage,
+      },
+      {
+        path: 'new',
+        title: 'Criar Usuário',
+        component: UserCreatePage,
+      },
+    ],
   },
 ];
 
