@@ -30,6 +30,7 @@
           [email]="u.email"
           [isVariant]="i % 2 !== 0"
           [image]="u?.profilePictureUrl || ''"
+          (confirmAction)="deleteUser($event)"
         ></user-card>
       </span>
     </li>

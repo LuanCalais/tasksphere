@@ -5,4 +5,5 @@ export interface User {
   email: string;
   profilePictureUrl?: string;
   profilePicture?: File | null;
+  cloudinaryPublicId?: string;
 }

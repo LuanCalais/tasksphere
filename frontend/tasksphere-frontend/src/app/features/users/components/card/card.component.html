@@ -17,7 +17,7 @@
 
 <confirm-modal
   *ngIf="showConfirmModal"
-  label="Tem certeza que deseja excluir este usuário?"
+  label="Tem certeza que deseja excluir este usuário? Os projetos e tarefas relacionados a ele serão excluídos "
   (confirm)="confirmDelete()"
   (cancel)="closeModal()"
 ></confirm-modal>

@@ -11,6 +11,7 @@ export interface CreateUserInput {
   name: string;
   email: string;
   profilePictureUrl?: string | null;
+  cloudinaryPublicId?: string | null;
 }
 
 export type UserOption = {

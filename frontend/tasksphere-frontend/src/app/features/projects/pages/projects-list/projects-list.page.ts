@@ -30,7 +30,7 @@ export class ProjectsListPage implements OnInit {
     return !this.loading && !this.errorMessage;
   }
 
-  deleteProject(id: number | undefined): void {
+  deleteProject(id: number | string | undefined): void {
     if (!id) return;
     this.loading = true;
     this.projectsService.deleteProject(id as number).subscribe({

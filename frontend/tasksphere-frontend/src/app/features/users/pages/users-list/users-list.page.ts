@@ -15,7 +15,6 @@ import { CardComponent } from '@features/users/components/card/card.component';
   styleUrl: './users-list.page.scss',
   imports: [CommonModule, HeaderComponent, RouterLink, SkeletonComponent, CardComponent],
 })
-
 export class UsersListPage implements OnInit {
   users: User[] = [];
   loading = false;
@@ -31,26 +30,23 @@ export class UsersListPage implements OnInit {
     return !this.loading && !this.errorMessage;
   }
 
-  // TODO: Method to delete a user (currently commented out)
-  // deleteUser(id: number | undefined): void {
-  //   if (!id) return;
-  //   this.loading = true;
-  //   this.usersService.deleteUser(id as number).subscribe({
-  //     next: () => {
-  //       this.loading = false;
-  //     },
-  //     error: () => {
-  //       this.loading = false;
-  //     },
-  //   });
-  // }
+  deleteUser(id: number | string | undefined) {
+    if (!id) return;
+    this.usersService.deleteUser(String(id), true).subscribe({
+      next: (user) => {
+        console.log('Usuário deletado permanentemente:', user);
+      },
+      error: (err) => {
+        console.error('Erro ao deletar usuário:', err);
+      },
+    });
+  }
 
   ngOnInit(): void {
     this.loading = true;
     this.usersService.getUsers().subscribe({
       next: (users) => {
         this.users = users;
-        console.log(this.users)
         this.loading = false;
         this.cdr.detectChanges();
       },
