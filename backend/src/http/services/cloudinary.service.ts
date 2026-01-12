@@ -46,12 +46,25 @@ export async function uploadToCloudinary(
   });
 }
 
-export async function deleteFromCloudinary(pulicId: string): Promise<boolean> {
+export async function deleteFromCloudinary(
+  publicId: string
+): Promise<{ result: string }> {
   try {
-    const result = await cloudinary.uploader.destroy(pulicId);
-    return result.result === "ok";
-  } catch (err) {
-    console.error("Erro ao deletar imagem do Cloudinary:", err);
-    return false;
+    const result = await cloudinary.uploader.destroy(publicId);
+    console.log(`Cloudinary deletion result for ${publicId}:`, result);
+    return result;
+  } catch (err: any) {
+    console.error(`Error deleting from Cloudinary (${publicId}):`, err);
+    return { result: err?.message || "" };
+  }
+}
+
+export function extractPublicIdFromUrl(url: string): string | null {
+  try {
+    const match = url.match(/\/upload\/(?:v\d+\/)?(.+)\.\w+$/);
+    return match ? match[1] : null;
+  } catch (err: any) {
+    console.error("Error extracting publicId from URL:", err);
+    return null;
   }
 }

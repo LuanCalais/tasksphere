@@ -4,6 +4,7 @@ export interface User {
   isActive: boolean;
   email: string;
   profilePictureUrl?: string;
+  cloudinaryPublicId?: string;
 }
 
 export interface UserQueryArgs {

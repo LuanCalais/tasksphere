@@ -13,7 +13,8 @@ export const typeDefs = gql`
     email: String!
     projects: [Project!]!
     tasks: [Task!]!
-    profilePictureUrl: String!
+    profilePictureUrl: String
+    cloudinaryPublicId: String
     isActive: Boolean!
     createdAt: String!
   }
@@ -41,19 +42,27 @@ export const typeDefs = gql`
   type Query {
     users(isActive: Boolean): [User!]!
     user(id: ID!): User
-
     projects: [Project!]!
     project(id: ID!): Project
-
     tasksByProject(projectId: ID!): [Task!]!
   }
 
   type Mutation {
-    createUser(name: String!, email: String!, profilePictureUrl: String): User!
-    deleteUser(id: ID!): User!
+    createUser(
+      name: String!
+      email: String!
+      profilePictureUrl: String
+      cloudinaryPublicId: String
+    ): User!
+    deleteUser(id: ID!, hardDelete: Boolean): User!
     createProject(name: String!, description: String, ownerId: ID!): Project!
     deleteProject(id: ID!): Project!
-    createTask(title: String!, projectId: ID!, assigneeId: ID, dueDate: String): Task!
+    createTask(
+      title: String!
+      projectId: ID!
+      assigneeId: ID
+      dueDate: String
+    ): Task!
     updateTaskStatus(taskId: ID!, status: TaskStatus!): Task!
   }
-`
+`;
