@@ -7,6 +7,13 @@ export const typeDefs = gql`
     DONE
   }
 
+  input TaskInput {
+    title: String!
+    color: String
+    assigneeId: ID
+    dueDate: String
+  }
+
   type User {
     id: ID!
     name: String!
@@ -33,6 +40,7 @@ export const typeDefs = gql`
   type Task {
     id: ID!
     title: String!
+    color: String!
     status: TaskStatus!
     project: Project!
     assignee: User
@@ -56,10 +64,16 @@ export const typeDefs = gql`
       cloudinaryPublicId: String
     ): User!
     deleteUser(id: ID!, hardDelete: Boolean): User!
-    createProject(name: String!, description: String, ownerId: ID!): Project!
+    createProject(
+      name: String!
+      description: String
+      ownerId: ID!
+      tasks: [TaskInput!]
+    ): Project!
     deleteProject(id: ID!): Project!
     createTask(
       title: String!
+      color: String
       projectId: ID!
       assigneeId: ID
       dueDate: String

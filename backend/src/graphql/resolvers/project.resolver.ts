@@ -1,5 +1,7 @@
 import { PrismaClientContext } from "../features/prisma";
 import { Project } from "../features/project/types";
+import { TaskStatus } from "../features/task/enums";
+import { TaskInput } from "../features/task/types";
 
 export const projectResolvers = {
   Query: {
@@ -29,7 +31,7 @@ export const projectResolvers = {
   Mutation: {
     createProject: async (
       _: unknown,
-      { name, description, ownerId }: Project,
+      { name, description, ownerId, tasks }: Project & { task?: TaskInput[] },
       { prisma }: PrismaClientContext
     ) => {
       console.log("Creating project with ownerId:", ownerId);
@@ -38,9 +40,25 @@ export const projectResolvers = {
           name,
           description,
           ownerId: Number(ownerId),
+          tasks: tasks?.length
+            ? {
+                create: tasks.map((task) => ({
+                  title: task.title,
+                  color: task.color || "#e65f5c",
+                  status: TaskStatus.TODO,
+                  assigneeId: task.assigneeId ? Number(task.assigneeId) : null,
+                  dueDate: task.dueDate ? new Date(task.dueDate) : null,
+                })),
+              }
+            : undefined,
         },
         include: {
           owner: true,
+          tasks: {
+            include: {
+              assignee: true,
+            },
+          },
         },
       });
     },
