@@ -6,4 +6,5 @@ export interface User {
   profilePictureUrl?: string;
   profilePicture?: File | null;
   cloudinaryPublicId?: string;
+  projectCount?: number | null;
 }

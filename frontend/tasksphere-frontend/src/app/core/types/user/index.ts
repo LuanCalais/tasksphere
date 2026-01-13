@@ -4,6 +4,7 @@ export interface User {
   email: string;
   isActive: boolean;
   profilePictureUrl?: string | null;
+  projectCount?: number | null;
   createdAt: string;
 }
 

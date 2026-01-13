@@ -17,6 +17,7 @@ export const typeDefs = gql`
     cloudinaryPublicId: String
     isActive: Boolean!
     createdAt: String!
+    projectCount: Int!
   }
 
   type Project {

@@ -5,6 +5,7 @@ export interface User {
   email: string;
   profilePictureUrl?: string;
   cloudinaryPublicId?: string;
+  projectCount?: number;
 }
 
 export interface UserQueryArgs {

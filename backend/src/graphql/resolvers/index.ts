@@ -10,5 +10,8 @@ export const resolvers = {
     ...userResolvers.Mutation,
     ...projectResolvers.Mutation,
   },
+  User: {
+    ...userResolvers.User,
+  },
   Project: projectResolvers.Project,
 };

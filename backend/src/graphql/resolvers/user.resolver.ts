@@ -6,6 +6,18 @@ import { PrismaClientContext } from "../features/prisma";
 import { User, UserQueryArgs } from "../features/user/types";
 
 export const userResolvers = {
+  User: {
+    projectCount: async (
+      parent: User,
+      _: unknown,
+      { prisma }: PrismaClientContext
+    ) => {
+      if (!parent.id) return 0;
+      return prisma.project.count({
+        where: { ownerId: parent.id },
+      });
+    },
+  },
   Query: {
     users: async (
       _: unknown,

@@ -17,6 +17,7 @@ export class CardComponent {
   email = input<string>('');
   confirmAction = output<number | undefined>();
   isVariant = input<Boolean>(false);
+  projectsCount = input<number | undefined | null>();
   readonly XIcon = X;
 
   showConfirmModal = false;
