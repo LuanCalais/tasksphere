@@ -29,7 +29,7 @@
           [name]="u.name"
           [email]="u.email"
           [isVariant]="i % 2 !== 0"
-          [image]="u?.profilePictureUrl || ''"
+          [image]="u?.profilePictureUrl || avatarDefaultPath"
           (confirmAction)="deleteUser($event)"
         ></user-card>
       </span>

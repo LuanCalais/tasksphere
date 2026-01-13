@@ -13,7 +13,7 @@
         <img
           *ngIf="selected.avatarUrl; else fallbackAvatar"
           class="avatar"
-          [src]="selected.avatarUrl!"
+          [src]="selected.avatarUrl ? selected.avatarUrl : avatarDefaultPath"
           [alt]="selected.name"
         />
         <ng-template #fallbackAvatar>
@@ -53,10 +53,7 @@
       (click)="select(u)"
     >
       <div class="user-row">
-        <img *ngIf="u.avatarUrl; else fallback" class="avatar" [src]="u.avatarUrl" [alt]="u.name" />
-        <ng-template #fallback>
-          <div class="avatar fallback">{{ initials(u.name) }}</div>
-        </ng-template>
+        <img class="avatar" [src]="u.avatarUrl || avatarDefaultPath" [alt]="u.name" />
 
         <div class="meta">
           <div class="name">{{ u.name }}</div>

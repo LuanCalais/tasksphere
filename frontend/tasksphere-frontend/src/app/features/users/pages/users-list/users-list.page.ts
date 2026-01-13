@@ -7,6 +7,7 @@ import { SkeletonComponent } from '@shared/components/skeleton/skeleton.componen
 import { User } from '@core/models/user';
 import { UsersService } from '@features/users/services';
 import { CardComponent } from '@features/users/components/card/card.component';
+import { AVATAR_DEFAULT_IMAGE } from '@shared/constants';
 
 @Component({
   selector: 'app-users-list-page',
@@ -19,6 +20,7 @@ export class UsersListPage implements OnInit {
   users: User[] = [];
   loading = false;
   errorMessage: string | null = null;
+  readonly avatarDefaultPath = AVATAR_DEFAULT_IMAGE.src;
 
   constructor(
     private usersService: UsersService,

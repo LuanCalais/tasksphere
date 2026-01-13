@@ -7,7 +7,7 @@
   <h2>{{ name() }}</h2>
   <p>{{ description() || 'Sem descrição' }}</p>
   <div class="owner-section">
-    <img class="avatar" [src]="ownerImage()" [alt]="ownerName()" />
+    <img class="avatar" [src]="ownerImage() || avatarDefaultPath" [alt]="ownerName()" />
     <small *ngIf="ownerName()">Dono: {{ ownerName() }} - ({{ ownerEmail() }}) </small>
   </div>
 </div>

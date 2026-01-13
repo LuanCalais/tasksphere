@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AVATAR_DEFAULT_IMAGE } from '@shared/constants';
 import { UserOption } from '@core/types/user';
 
 @Component({
@@ -27,6 +28,7 @@ export class UserSelectComponent implements ControlValueAccessor {
 
   open = false;
   value: UserOption['id'] | null = null;
+  readonly avatarDefaultPath = AVATAR_DEFAULT_IMAGE.src;
 
   private onChange: (value: UserOption['id'] | null) => void = () => {};
   private onTouched: () => void = () => {};

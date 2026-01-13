@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, input, output } from '@angular/core';
+import { AVATAR_DEFAULT_IMAGE } from '@shared/constants';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { LucideAngularModule, X } from 'lucide-angular';
 
@@ -20,6 +21,7 @@ export class CardComponent {
   isVariant = input<boolean>(false);
   confirmAction = output<number | undefined>();
   readonly XIcon = X;
+  readonly avatarDefaultPath = AVATAR_DEFAULT_IMAGE.src;
 
   showConfirmModal = false;
 
