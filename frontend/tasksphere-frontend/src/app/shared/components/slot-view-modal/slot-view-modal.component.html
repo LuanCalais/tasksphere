@@ -1,0 +1,19 @@
+<div class="modal-backdrop" (click)="onCancel()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <div class="title-container">
+        <h3>{{ title() }}</h3>
+        <button class="close-btn" (click)="onCancel()" aria-label="Fechar">
+          <lucide-icon [img]="XIcon" [size]="20"></lucide-icon>
+        </button>
+      </div>
+      <p>{{ label() }}</p>
+    </div>
+    <div class="modal-body">
+      <ng-content></ng-content>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel" (click)="onCancel()">Cancelar</button>
+    </div>
+  </div>
+</div>

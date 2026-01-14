@@ -10,14 +10,35 @@
     <img class="avatar" [src]="ownerImage() || avatarDefaultPath" [alt]="ownerName()" />
     <small *ngIf="ownerName()">Dono: {{ ownerName() }} - ({{ ownerEmail() }}) </small>
   </div>
-  <h5 class="projects-section">
-    {{ getTaskLabel() }}
-  </h5>
+  <div class="projects-section">
+    <h5>
+      {{ getTaskLabel() }}
+    </h5>
+    <button
+      type="button"
+      class="btn"
+      (click)="showSlotViewModal = true"
+      [disabled]="!!!tasks().length"
+    >
+      Ver todas
+    </button>
+  </div>
 </div>
+
+<slot-view-modal
+  *ngIf="showSlotViewModal"
+  title="Tarefas"
+  label="Estas são as tarefas atreladas ao projeto"
+  (cancel)="showSlotViewModal = false"
+>
+  <div *ngFor="let t of tasks(); let i = index">
+    {{ t.title }}
+  </div>
+</slot-view-modal>
 
 <confirm-modal
   *ngIf="showConfirmModal"
   label="Tem certeza que deseja excluir este projeto?"
   (confirm)="confirmDelete()"
-  (cancel)="closeModal()"
+  (cancel)="showConfirmModal = false"
 ></confirm-modal>

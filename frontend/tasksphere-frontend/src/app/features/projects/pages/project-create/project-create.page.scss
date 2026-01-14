@@ -7,9 +7,9 @@
   display: grid;
   gap: 0.9rem;
   padding: 1.5rem;
-  background: #f9fafb;
+  background: var(--color-light);
   border-radius: 12px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-neutral);
 }
 
 .section-header {
@@ -20,7 +20,7 @@
   font-size: 1.125rem;
   font-weight: 600;
   margin: 0 0 0.25rem 0;
-  color: #111827;
+  color: var(--color-primary);
 
   .required {
     color: var(--color-error);
@@ -30,7 +30,7 @@
 
 .section-subtitle {
   font-size: 0.875rem;
-  color: #6b7280;
+  color: var(--color-primary-variant);
   margin: 0;
 }
 
@@ -39,12 +39,12 @@ label {
   gap: 0.35rem;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #374151;
+  color: var(--color-primary-variant);
 }
 
 input,
 textarea {
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-neutral);
   border-radius: 10px;
   padding: 0.65rem 0.75rem;
   font: inherit;
@@ -52,11 +52,11 @@ textarea {
 
   &:focus {
     outline: none;
-    border-color: #3b82f6;
+    border-color: var(--color-primary);
   }
 
   &:disabled {
-    background: #f3f4f6;
+    background: var(--color-light);
     cursor: not-allowed;
   }
 }
@@ -71,9 +71,9 @@ textarea {
   grid-template-columns: auto 1fr auto;
   gap: 1rem;
   padding: 1.25rem;
-  background: white;
+  background: var(--color-light);
   border-radius: 10px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-neutral);
   align-items: start;
 }
 
@@ -83,8 +83,8 @@ textarea {
   justify-content: center;
   width: 32px;
   height: 32px;
-  background: #3b82f6;
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-light);
   border-radius: 50%;
   font-weight: 600;
   font-size: 0.875rem;
@@ -123,11 +123,11 @@ textarea {
 .color-input {
   cursor: pointer;
   padding-left: 3rem;
-  color: #111827;
+  color: var(--color-primary);
   font-weight: 500;
-  
+
   &:focus {
-    border-color: #3b82f6;
+    border-color: var(--color-primary-variant);
   }
 }
 
@@ -139,7 +139,7 @@ textarea {
   width: 32px;
   height: 32px;
   border-radius: 6px;
-  border: 2px solid white;
+  border: 2px solid var(--color-light);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
   pointer-events: none;
 }
@@ -152,14 +152,14 @@ textarea {
   height: 36px;
   border: none;
   background: transparent;
-  color: #ef4444;
+  color: var(--color-error);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;
   flex-shrink: 0;
 
   &:hover:not(:disabled) {
-    background: #fee2e2;
+    background: var(--color-light);
   }
 
   &:disabled {
@@ -179,11 +179,6 @@ textarea {
   justify-content: center;
   gap: 0.5rem;
   margin-top: 0.5rem;
-
-  svg {
-    width: 20px;
-    height: 20px;
-  }
 }
 
 .actions {
@@ -196,7 +191,7 @@ textarea {
   color: var(--color-error);
   margin: 0;
   padding: 0.75rem;
-  background: #fee2e2;
+  background: var(--color-light);
   border-radius: 8px;
   font-size: 0.875rem;
 }

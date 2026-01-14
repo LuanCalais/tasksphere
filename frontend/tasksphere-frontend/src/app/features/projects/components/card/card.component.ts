@@ -4,13 +4,14 @@ import { AVATAR_DEFAULT_IMAGE } from '@shared/constants';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { LucideAngularModule, X } from 'lucide-angular';
 import { Task } from '@core/models/task';
+import { SlotViewModalComponent } from '@shared/components/slot-view-modal/slot-view-modal.component';
 
 @Component({
   selector: 'project-card',
   standalone: true,
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',
-  imports: [CommonModule, LucideAngularModule, ConfirmModalComponent],
+  imports: [CommonModule, LucideAngularModule, ConfirmModalComponent, SlotViewModalComponent],
 })
 export class CardComponent {
   id = input<number | undefined>();
@@ -26,14 +27,7 @@ export class CardComponent {
   readonly avatarDefaultPath = AVATAR_DEFAULT_IMAGE.src;
 
   showConfirmModal = false;
-
-  openModal() {
-    this.showConfirmModal = true;
-  }
-
-  closeModal() {
-    this.showConfirmModal = false;
-  }
+  showSlotViewModal = false;
 
   getTaskLabel(): string {
     const { length } = this.tasks();
