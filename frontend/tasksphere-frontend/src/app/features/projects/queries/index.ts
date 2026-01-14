@@ -7,6 +7,11 @@ export const GET_PROJECTS = gql`
       name
       description
       createdAt
+      tasks {
+        id
+        title
+        status
+      }
       owner {
         id
         name

@@ -3,6 +3,7 @@ import { Component, input, output } from '@angular/core';
 import { AVATAR_DEFAULT_IMAGE } from '@shared/constants';
 import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-modal.component';
 import { LucideAngularModule, X } from 'lucide-angular';
+import { Task } from '@core/models/task';
 
 @Component({
   selector: 'project-card',
@@ -18,6 +19,7 @@ export class CardComponent {
   ownerName = input<string>('');
   ownerImage = input<string>('');
   ownerEmail = input<string>('');
+  tasks = input<Task[]>([]);
   isVariant = input<boolean>(false);
   confirmAction = output<number | undefined>();
   readonly XIcon = X;
@@ -31,6 +33,12 @@ export class CardComponent {
 
   closeModal() {
     this.showConfirmModal = false;
+  }
+
+  getTaskLabel(): string {
+    const { length } = this.tasks();
+    const plural = length !== 1;
+    return `${plural ? 'Existem' : 'Existe'} ${length} tarefa${plural ? 's' : ''} neste projeto`;
   }
 
   confirmDelete() {

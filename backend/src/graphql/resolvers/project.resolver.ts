@@ -13,6 +13,10 @@ export const projectResolvers = {
       try {
         const projects = await prisma.project.findMany({
           orderBy: { createdAt: "desc" },
+          include: {
+            owner: true,
+            tasks: true,
+          },
         });
 
         return projects ?? [];

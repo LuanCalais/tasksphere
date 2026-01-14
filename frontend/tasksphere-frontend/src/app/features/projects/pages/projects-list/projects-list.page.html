@@ -31,6 +31,7 @@
           [ownerName]="p.owner?.name || ''"
           [ownerEmail]="p.owner?.email || ''"
           [ownerImage]="p.owner?.profilePictureUrl || ''"
+          [tasks]="p.tasks || []"
           [isVariant]="i % 2 !== 0"
           (confirmAction)="deleteProject($event)"
         >

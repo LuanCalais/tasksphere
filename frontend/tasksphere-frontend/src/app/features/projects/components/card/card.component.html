@@ -10,6 +10,9 @@
     <img class="avatar" [src]="ownerImage() || avatarDefaultPath" [alt]="ownerName()" />
     <small *ngIf="ownerName()">Dono: {{ ownerName() }} - ({{ ownerEmail() }}) </small>
   </div>
+  <h5 class="projects-section">
+    {{ getTaskLabel() }}
+  </h5>
 </div>
 
 <confirm-modal
