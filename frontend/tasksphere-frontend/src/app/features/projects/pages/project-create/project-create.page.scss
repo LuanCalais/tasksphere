@@ -1,20 +1,191 @@
 .form {
   display: grid;
-  gap: 0.9rem;
-  //   TODO: ajustar largura do form quando for possível adicionar usuários e foto
-  //   max-width: 520px;
+  gap: 2rem;
 }
+
+.section {
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.5rem;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.section-header {
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  color: #111827;
+
+  .required {
+    color: var(--color-error);
+    margin-left: 0.25rem;
+  }
+}
+
+.section-subtitle {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+}
+
 label {
   display: grid;
   gap: 0.35rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
 }
+
 input,
 textarea {
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 0.65rem 0.75rem;
   font: inherit;
+  transition: border-color 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+  }
+
+  &:disabled {
+    background: #f3f4f6;
+    cursor: not-allowed;
+  }
 }
+
+.tasks-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.task-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  align-items: start;
+}
+
+.task-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+.task-content {
+  display: grid;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.task-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.task-field {
+  display: grid;
+  gap: 0.35rem;
+
+  &.color-field {
+    max-width: 200px;
+  }
+}
+
+.color-picker-wrapper {
+  position: relative;
+}
+
+.color-input {
+  cursor: pointer;
+  padding-left: 3rem;
+  color: #111827;
+  font-weight: 500;
+  
+  &:focus {
+    border-color: #3b82f6;
+  }
+}
+
+.color-preview {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 2px solid white;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+}
+
+.btn-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  color: #ef4444;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+
+  &:hover:not(:disabled) {
+    background: #fee2e2;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.add-task-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
 .actions {
   display: flex;
   gap: 0.75rem;
@@ -24,4 +195,8 @@ textarea {
 .error {
   color: var(--color-error);
   margin: 0;
+  padding: 0.75rem;
+  background: #fee2e2;
+  border-radius: 8px;
+  font-size: 0.875rem;
 }

@@ -11,27 +11,112 @@
 </header-component>
 
 <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <label>
-    Nome
-    <input type="text" formControlName="name" placeholder="Ex: Projeto Portfólio" />
-  </label>
+  <div class="section">
+    <label>
+      Nome
+      <input type="text" formControlName="name" placeholder="Ex: Projeto Portfólio" />
+    </label>
 
-  <label>
-    Descrição (opcional)
-    <textarea
-      rows="4"
-      formControlName="description"
-      placeholder="Do que se trata esse projeto?"
-    ></textarea>
-  </label>
+    <label>
+      Descrição (opcional)
+      <textarea
+        rows="4"
+        formControlName="description"
+        placeholder="Do que se trata esse projeto?"
+      ></textarea>
+    </label>
 
-  <app-user-select
-    formControlName="ownerId"
-    [label]="'Owner'"
-    [placeholder]="loadingUsers ? 'Carregando usuários...' : 'Selecione um responsável'"
-    [options]="users"
-    [disabled]="loadingUsers || submitting"
-  ></app-user-select>
+    <app-user-select
+      formControlName="ownerId"
+      [label]="'Owner'"
+      [placeholder]="loadingUsers ? 'Carregando usuários...' : 'Selecione um responsável'"
+      [options]="users"
+      [disabled]="loadingUsers || submitting"
+    ></app-user-select>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <h3 class="section-title">Tasks</h3>
+      <p class="section-subtitle">Adicione pelo menos uma task ao projeto</p>
+    </div>
+
+    <div class="tasks-list">
+      <div
+        class="task-item"
+        *ngFor="let task of tasks.controls; let i = index"
+        [formGroup]="getTaskFormGroup(i)"
+      >
+        <div class="task-number">{{ i + 1 }}</div>
+
+        <div class="task-content">
+          <div class="task-row">
+            <label class="task-field">
+              Título
+              <input type="text" formControlName="title" placeholder="Ex: Criar design inicial" />
+            </label>
+
+            <label class="task-field color-field">
+              Cor
+              <div class="color-picker-wrapper">
+                <input
+                  type="text"
+                  formControlName="color"
+                  [style.background-color]="getTaskFormGroup(i).value.color"
+                  [colorPicker]="getTaskFormGroup(i).value.color"
+                  (colorPickerChange)="onColorChange(i, $event)"
+                  [cpPosition]="'bottom'"
+                  [cpOutputFormat]="'hex'"
+                  class="color-input"
+                  readonly
+                />
+                <div
+                  class="color-preview"
+                  [style.background-color]="getTaskFormGroup(i).value.color"
+                ></div>
+              </div>
+            </label>
+          </div>
+
+          <div class="task-row">
+            <app-user-select
+              formControlName="assigneeId"
+              [label]="'Responsável (opcional)'"
+              [placeholder]="'Selecione um responsável'"
+              [options]="users"
+              [disabled]="loadingUsers || submitting"
+            ></app-user-select>
+
+            <label class="task-field">
+              Data de entrega (opcional)
+              <input type="date" formControlName="dueDate" />
+            </label>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="btn-remove"
+          (click)="removeTask(i)"
+          [disabled]="tasks.length === 1 || submitting"
+          title="Remover task"
+        >
+          <lucide-icon [img]="XIcon" [size]="20"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="btn secondary add-task-btn"
+      (click)="addTask()"
+      [disabled]="submitting"
+    >
+      <lucide-icon [img]="PlusIcon" [size]="20"></lucide-icon>
+
+      Adicionar Task
+    </button>
+  </div>
 
   <div class="actions">
     <button class="btn" type="submit" [disabled]="form.invalid || submitting">

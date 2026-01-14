@@ -1,8 +1,13 @@
 import { gql } from 'apollo-angular';
 
 export const CREATE_PROJECT = gql`
-  mutation CreateProject($name: String!, $description: String, $ownerId: ID!) {
-    createProject(name: $name, description: $description, ownerId: $ownerId) {
+  mutation CreateProject(
+    $name: String!
+    $description: String
+    $ownerId: ID!
+    $tasks: [TaskInput!]
+  ) {
+    createProject(name: $name, description: $description, ownerId: $ownerId, tasks: $tasks) {
       id
       name
       description
@@ -11,6 +16,18 @@ export const CREATE_PROJECT = gql`
         id
         name
         email
+      }
+      tasks {
+        id
+        title
+        color
+        status
+        assignee {
+          id
+          name
+          email
+        }
+        dueDate
       }
     }
   }

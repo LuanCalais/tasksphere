@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { NavigationService } from '@core/services/navigation.service';
 import { HeaderComponent } from '@shared/components/header/header.component';
@@ -10,13 +10,25 @@ import { UserSelectComponent } from '@features/users/components/user-select/user
 import { UsersService } from '@features/users/services';
 import { User } from '@core/models/user';
 import { UserOption } from '@core/types/user';
+import { ColorPickerDirective } from 'ngx-color-picker';
+import { DEFAULT_COLORS } from '@shared/constants';
+import { TaskFormValue } from '@core/types/task';
+import { LucideAngularModule, X, Plus } from 'lucide-angular';
 
 @Component({
   selector: 'app-project-create-page',
   standalone: true,
   templateUrl: './project-create.page.html',
   styleUrl: './project-create.page.scss',
-  imports: [CommonModule, HeaderComponent, RouterLink, ReactiveFormsModule, UserSelectComponent],
+  imports: [
+    CommonModule,
+    HeaderComponent,
+    RouterLink,
+    ReactiveFormsModule,
+    UserSelectComponent,
+    ColorPickerDirective,
+    LucideAngularModule,
+  ],
 })
 export class ProjectCreatePage implements OnInit {
   submitting: boolean = false;
@@ -24,6 +36,8 @@ export class ProjectCreatePage implements OnInit {
   form;
   loadingUsers: boolean = false;
   users: UserOption[] = [];
+  readonly XIcon = X;
+  readonly PlusIcon = Plus;
 
   constructor(
     public nav: NavigationService,
@@ -35,11 +49,49 @@ export class ProjectCreatePage implements OnInit {
       name: ['', [Validators.required, Validators.minLength(3)]],
       description: [''],
       ownerId: [null as number | null, [Validators.required]],
+      tasks: this.fb.array([], [Validators.required, Validators.minLength(1)]),
     });
   }
 
   ngOnInit(): void {
     this.loadUsers();
+  }
+
+  get tasks(): FormArray {
+    return this.form.get('tasks') as FormArray;
+  }
+
+  private getRandomColor(): string {
+    const index = this.tasks.length % DEFAULT_COLORS.length;
+    return DEFAULT_COLORS[index];
+  }
+
+  private createTaskFormGroup(initialColor?: number): FormGroup {
+    const randomColor = initialColor || this.getRandomColor();
+    return this.fb.group({
+      title: ['', [Validators.required, Validators.minLength(3)]],
+      color: [randomColor, [Validators.required]],
+      assigneeId: [null as number | null],
+      dueDate: [null as string | null],
+    });
+  }
+
+  addTask(): void {
+    this.tasks.push(this.createTaskFormGroup());
+  }
+
+  removeTask(index: number): void {
+    if (this.tasks.length > 1) {
+      this.tasks.removeAt(index);
+    }
+  }
+
+  getTaskFormGroup(index: number): FormGroup {
+    return this.tasks.at(index) as FormGroup;
+  }
+
+  onColorChange(index: number, color: string): void {
+    this.getTaskFormGroup(index).patchValue({ color });
   }
 
   private loadUsers() {
@@ -77,13 +129,21 @@ export class ProjectCreatePage implements OnInit {
     this.submitting = true;
     this.errorMessage = null;
 
-    const { name, description, ownerId } = this.form.value;
+    const { name, description, ownerId, tasks } = this.form.value;
+
+    const formattedTasks = (tasks as TaskFormValue[]).map((task) => ({
+      title: task.title,
+      color: task.color,
+      assigneeId: task.assigneeId ? String(task.assigneeId) : null,
+      dueDate: task.dueDate || null,
+    }));
 
     this.projectsService
       .createProject({
         name: name!,
         description: description || undefined,
         ownerId: Number(ownerId),
+        tasks: formattedTasks,
       })
       .subscribe({
         next: (project: Project) => {

@@ -29,6 +29,7 @@ export class ProjectsService {
           name: input.name,
           description: input.description ?? null,
           ownerId: String(input.ownerId),
+          tasks: input.tasks || [],
         },
         refetchQueries: [{ query: GET_PROJECTS }],
       })
