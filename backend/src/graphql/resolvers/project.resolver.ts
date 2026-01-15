@@ -1,4 +1,5 @@
 import { PrismaClientContext } from "../features/prisma";
+import { ProjectStatus } from "../features/project/enums";
 import { Project } from "../features/project/types";
 import { TaskStatus } from "../features/task/enums";
 import { TaskInput } from "../features/task/types";
@@ -48,6 +49,7 @@ export const projectResolvers = {
           name,
           description,
           ownerId: Number(ownerId),
+          status: ProjectStatus.TODO,
           tasks: tasks?.length
             ? {
                 create: tasks.map((task) => ({

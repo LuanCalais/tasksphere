@@ -26,6 +26,7 @@ model Project {
   owner       User     @relation("UserProjects", fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId     Int
   tasks       Task[]
+  status      ProjectStatus @default(TODO)
   createdAt   DateTime @default(now())
 }
 
@@ -45,4 +46,11 @@ enum TaskStatus {
   TODO
   IN_PROGRESS
   DONE
+}
+
+enum ProjectStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+  CLOSE
 }

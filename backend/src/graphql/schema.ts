@@ -7,6 +7,13 @@ export const typeDefs = gql`
     DONE
   }
 
+  enum ProjectStatus {
+    TODO
+    IN_PROGRESS
+    DONE
+    CLOSE
+  }
+
   input TaskInput {
     title: String!
     color: String
@@ -34,6 +41,7 @@ export const typeDefs = gql`
     description: String
     owner: User!
     tasks: [Task!]!
+    status: ProjectStatus!
     createdAt: String!
   }
 
