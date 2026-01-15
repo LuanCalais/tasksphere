@@ -1,0 +1,14 @@
+<li class="task-item">
+  <span *ngIf="assignee()?.id" class="avatar-container">
+    <img
+      class="avatar"
+      [src]="assignee()?.profilePictureUrl || avatarDefaultPath"
+      [alt]="assignee()?.name"
+    />
+  </span>
+  <span>
+    {{ title() }}
+  </span>
+  <span class="color-container" [style.background-color]="color()"> </span>
+  <task-status [status]="status()"> </task-status>
+</li>

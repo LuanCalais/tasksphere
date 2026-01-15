@@ -14,6 +14,7 @@ import { ColorPickerDirective } from 'ngx-color-picker';
 import { DEFAULT_COLORS } from '@shared/constants';
 import { TaskFormValue } from '@core/types/task';
 import { LucideAngularModule, X, Plus } from 'lucide-angular';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-project-create-page',
@@ -43,7 +44,8 @@ export class ProjectCreatePage implements OnInit {
     public nav: NavigationService,
     private fb: FormBuilder,
     private projectsService: ProjectsService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private toastr: ToastrService
   ) {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -55,6 +57,7 @@ export class ProjectCreatePage implements OnInit {
 
   ngOnInit(): void {
     this.loadUsers();
+    this.addTask();
   }
 
   get tasks(): FormArray {
@@ -123,8 +126,30 @@ export class ProjectCreatePage implements OnInit {
     });
   }
 
+  private validateTasks(): boolean {
+    this.tasks.controls.forEach((control) => {
+      control.markAllAsTouched();
+    });
+
+    const tasksWithoutAssignee = (this.tasks.value as TaskFormValue[]).filter(
+      (task) => !task.assigneeId
+    );
+
+    if (tasksWithoutAssignee.length > 0) {
+      this.toastr.error(
+        `${tasksWithoutAssignee.length} task(s) sem responsável. Todas as tasks precisam ter um responsável.`
+      );
+
+      return false;
+    }
+
+    return true;
+  }
+
   onSubmit() {
-    if (this.form.invalid || this.submitting) return;
+    if (this.form.invalid || !this.validateTasks() || this.submitting) {
+      return;
+    }
 
     this.submitting = true;
     this.errorMessage = null;
@@ -150,10 +175,12 @@ export class ProjectCreatePage implements OnInit {
           console.log('Project created successfully', project);
           this.submitting = false;
           this.nav.goToRoute('projects');
+          this.toastr.success('Projeto criado corretamente');
         },
         error: (err) => {
           console.error('Error creating project:', err);
           this.submitting = false;
+          this.toastr.error('Não foi possível criar o projeto, tente novamente mais tarde');
         },
       });
   }

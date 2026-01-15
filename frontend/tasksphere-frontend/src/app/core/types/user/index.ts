@@ -2,10 +2,10 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  isActive: boolean;
+  isActive?: boolean | null;
   profilePictureUrl?: string | null;
   projectCount?: number | null;
-  createdAt: string;
+  createdAt?: string | null;
 }
 
 export interface CreateUserInput {

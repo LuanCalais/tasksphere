@@ -5,13 +5,20 @@ import { ConfirmModalComponent } from '@shared/components/confirm-modal/confirm-
 import { LucideAngularModule, X } from 'lucide-angular';
 import { Task } from '@core/models/task';
 import { SlotViewModalComponent } from '@shared/components/slot-view-modal/slot-view-modal.component';
+import { TaskListItemComponent } from '@features/tasks/components/task-list-item/task-list-item.component';
 
 @Component({
   selector: 'project-card',
   standalone: true,
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',
-  imports: [CommonModule, LucideAngularModule, ConfirmModalComponent, SlotViewModalComponent],
+  imports: [
+    CommonModule,
+    LucideAngularModule,
+    ConfirmModalComponent,
+    SlotViewModalComponent,
+    TaskListItemComponent,
+  ],
 })
 export class CardComponent {
   id = input<number | undefined>();

@@ -11,6 +11,13 @@ export const GET_PROJECTS = gql`
         id
         title
         status
+        color
+        assignee {
+          id
+          name
+          email
+          profilePictureUrl
+        }
       }
       owner {
         id

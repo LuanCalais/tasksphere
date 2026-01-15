@@ -1,0 +1,23 @@
+.task-status {
+  border-radius: 4px;
+  padding: 0 4px;
+  font-size: 0.7rem;
+}
+
+.task-todo {
+  color: var(--color-waiting);
+  border: 2px solid var(--color-waiting);
+  background-color: var(--color-waiting-variant);
+}
+
+.task-in-progress {
+  color: var(--color-information);
+  border: 2px solid var(--color-information);
+  background-color: var(--color-information-variant);
+}
+
+.task-done {
+  color: var(--color-success);
+  border: 2px solid var(--color-success);
+  background-color: var(--color-success-variant);
+}

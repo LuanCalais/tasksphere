@@ -32,7 +32,13 @@
   (cancel)="showSlotViewModal = false"
 >
   <div *ngFor="let t of tasks(); let i = index">
-    {{ t.title }}
+    <task-list-item
+      [id]="t.id"
+      [title]="t.title"
+      [status]="t.status"
+      [color]="t.color"
+      [assignee]="t.assignee ? t.assignee : null"
+      ></task-list-item>
   </div>
 </slot-view-modal>
 

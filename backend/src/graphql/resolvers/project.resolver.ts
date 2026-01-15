@@ -15,7 +15,11 @@ export const projectResolvers = {
           orderBy: { createdAt: "desc" },
           include: {
             owner: true,
-            tasks: true,
+            tasks: {
+              include: {
+                assignee: true,
+              },
+            },
           },
         });
 
@@ -99,12 +103,6 @@ export const projectResolvers = {
       if (parent.ownerId == null) return null;
 
       return prisma.user.findUnique({ where: { id: parent.ownerId } });
-    },
-
-    tasks: (parent: Project, _: unknown, { prisma }: PrismaClientContext) => {
-      if (parent.id == null) return null;
-
-      return prisma.task.findMany({ where: { projectId: parent.id } });
     },
   },
 };

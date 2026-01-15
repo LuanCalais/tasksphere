@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
 import { NavigationService } from '@core/services/navigation.service';
 import { HeaderComponent } from '@shared/components/header/header.component';
 import { UsersService } from '@features/users/services';
-import { User } from '@app/core/models/user';
+import { User } from '@core/models/user';
 import { LucideAngularModule, X } from 'lucide-angular';
 
 @Component({
