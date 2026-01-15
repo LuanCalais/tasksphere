@@ -7,6 +7,7 @@ import { HeaderComponent } from '@shared/components/header/header.component';
 import { UsersService } from '@features/users/services';
 import { User } from '@core/models/user';
 import { LucideAngularModule, X } from 'lucide-angular';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-create-page',
@@ -30,7 +31,8 @@ export class UserCreatePage {
     public nav: NavigationService,
     private fb: FormBuilder,
     private usersService: UsersService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastr: ToastrService
   ) {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -92,10 +94,12 @@ export class UserCreatePage {
           console.log('User created successfully', user);
           this.submitting = false;
           this.nav.goToRoute('users');
+          this.toastr.success('Usuário criado com sucesso.');
         },
         error: (err) => {
           console.error('Error creating user:', err);
           this.submitting = false;
+          this.toastr.error('Erro ao criar o usuário.');
         },
       });
   }

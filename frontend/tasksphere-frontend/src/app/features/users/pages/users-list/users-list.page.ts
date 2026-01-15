@@ -8,6 +8,7 @@ import { User } from '@core/models/user';
 import { UsersService } from '@features/users/services';
 import { CardComponent } from '@features/users/components/card/card.component';
 import { AVATAR_DEFAULT_IMAGE } from '@shared/constants';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-users-list-page',
@@ -25,7 +26,8 @@ export class UsersListPage implements OnInit {
   constructor(
     private usersService: UsersService,
     public nav: NavigationService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastr: ToastrService
   ) {}
 
   canShowContent(): boolean {
@@ -37,9 +39,11 @@ export class UsersListPage implements OnInit {
     this.usersService.deleteUser(String(id), true).subscribe({
       next: (user) => {
         console.log('Usuário deletado permanentemente:', user);
+        this.toastr.success('Usuário deletado com sucesso.');
       },
       error: (err) => {
         console.error('Erro ao deletar usuário:', err);
+        this.toastr.error('Erro ao deletar o usuário.');
       },
     });
   }

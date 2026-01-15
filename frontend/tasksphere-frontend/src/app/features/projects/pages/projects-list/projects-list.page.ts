@@ -7,6 +7,7 @@ import { Project } from '@core/models/project';
 import { ProjectsService } from '@features/projects/services';
 import { SkeletonComponent } from '@shared/components/skeleton/skeleton.component';
 import { CardComponent } from '@features/projects/components/card/card.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-projects-list-page',
@@ -23,7 +24,8 @@ export class ProjectsListPage implements OnInit {
   constructor(
     private projectsService: ProjectsService,
     public nav: NavigationService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastr: ToastrService
   ) {}
 
   canShowContent(): boolean {
@@ -36,9 +38,11 @@ export class ProjectsListPage implements OnInit {
     this.projectsService.deleteProject(id as number).subscribe({
       next: () => {
         this.loading = false;
+        this.toastr.success('Projeto deletado com sucesso.');
       },
       error: () => {
         this.loading = false;
+        this.toastr.error('Erro ao deletar o projeto.');
       },
     });
   }

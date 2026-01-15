@@ -4,6 +4,7 @@ import { ProjectsListPage } from './features/projects/pages/projects-list/projec
 import { ProjectCreatePage } from './features/projects/pages/project-create/project-create.page';
 import { UsersListPage } from './features/users/pages/users-list/users-list.page';
 import { UserCreatePage } from './features/users/pages/users-create/users-create.page';
+import { KanbanBoardPage } from './features/kanban/pages/kanban-board/kanban-board.page';
 
 const customRoutes: Routes = [
   {
@@ -24,8 +25,14 @@ const customRoutes: Routes = [
         title: 'Criar Projeto',
         component: ProjectCreatePage,
       },
+      {
+        path: 'kanban',
+        title: 'Kanban',
+        component: KanbanBoardPage,
+      },
     ],
   },
+
   {
     path: 'users',
     title: 'Usuários',
