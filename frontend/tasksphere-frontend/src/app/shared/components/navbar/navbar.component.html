@@ -7,9 +7,13 @@
   </div>
 
   <div class="links">
-    <div *ngFor="let item of navItems" class="nav-item" [class.has-children]="hasChildren(item)">
+    <div
+      *ngFor="let item of navItems"
+      class="nav-item"
+      [class.has-children]="hasChildren(item)"
+    >
       <a
-        *ngIf="!hasChildren(item)"
+        *ngIf="!hasChildren(item) && !item.route.hideInMenu"
         [routerLink]="item.route.path"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"

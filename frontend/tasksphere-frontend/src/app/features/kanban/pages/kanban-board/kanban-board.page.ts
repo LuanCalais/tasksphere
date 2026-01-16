@@ -32,7 +32,11 @@ export class KanbanBoardPage implements OnInit {
 
   readonly avatarDefaultPath = AVATAR_DEFAULT_IMAGE.src;
 
-  constructor(private projectsService: ProjectsService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private projectsService: ProjectsService,
+    private cdr: ChangeDetectorRef,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadProjects();
@@ -85,7 +89,7 @@ export class KanbanBoardPage implements OnInit {
     return ProjectStatus.TODO;
   }
 
-  openProject(project: Project): void {
-    console.log('Navigating to project with ID:', project.id);
+  openProject(project: any) {
+    this.router.navigate(['/kanban/project', project.id]);
   }
 }

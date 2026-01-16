@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Route, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { routes } from '@app/app.routes';
 import { NavItem } from '@shared/types/navigation';
 
@@ -21,6 +21,8 @@ export class NavbarComponent implements OnInit {
         route,
         isOpen: false,
       }));
+
+    console.log(this.navItems);
   }
 
   toggleDropdown(item: NavItem, event: Event): void {
