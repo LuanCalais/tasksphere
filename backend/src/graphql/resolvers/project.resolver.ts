@@ -34,7 +34,26 @@ export const projectResolvers = {
       _: unknown,
       { id }: { id: string },
       { prisma }: PrismaClientContext
-    ) => prisma.project.findUnique({ where: { id: Number(id) } }),
+    ) => {
+      try {
+        const project = prisma.project.findUnique({
+          where: { id: Number(id) },
+          include: {
+            owner: true,
+            tasks: {
+              include: {
+                assignee: true,
+              },
+            },
+          },
+        });
+
+        return project;
+      } catch (error) {
+        console.error("Error Query.project: ", error);
+        return null;
+      }
+    },
   },
 
   Mutation: {

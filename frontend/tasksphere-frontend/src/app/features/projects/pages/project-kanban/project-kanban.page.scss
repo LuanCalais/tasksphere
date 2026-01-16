@@ -1,0 +1,42 @@
+.project-kanban-page {
+  padding: 1rem;
+
+  .kanban-area {
+    .kanban-columns {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      overflow-x: auto;
+      padding-top: 1rem;
+    }
+
+    .kanban-column {
+      min-width: 320px;
+      background: var(--color-light);
+      padding: 0.75rem;
+      border-radius: 8px;
+
+      .task-list {
+        min-height: 60px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .task-card {
+        background: white;
+        border-radius: 6px;
+        padding: 0.6rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid rgba(0, 0, 0, 0.04);
+      }
+
+      .task-actions .btn.small {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+      }
+    }
+  }
+}

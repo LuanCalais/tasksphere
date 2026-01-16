@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { map, Observable } from 'rxjs';
 import { Project } from '@core/models/project';
-import { GET_PROJECTS } from '@features/projects/queries';
+import { GET_PROJECT, GET_PROJECTS } from '@features/projects/queries';
 import { CreateProjectInput } from '@core/types/project';
 import { CREATE_PROJECT, DELETE_PROJECT } from '@features/projects/mutations';
 
@@ -19,6 +19,16 @@ export class ProjectsService {
         fetchPolicy: 'network-only',
       })
       .valueChanges.pipe(map((result) => result.data?.projects || []));
+  }
+
+  getProjectById(id: string | number): Observable<Project | null> {
+    return this.apollo
+      .watchQuery<{ project: Project | null }>({
+        query: GET_PROJECT,
+        variables: { id: String(id) },
+        fetchPolicy: 'network-only',
+      })
+      .valueChanges.pipe(map((result) => (result.data?.project as Project | null) ?? null));
   }
 
   createProject(input: CreateProjectInput): Observable<Project> {
