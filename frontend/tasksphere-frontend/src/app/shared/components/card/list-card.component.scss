@@ -1,0 +1,27 @@
+.project-card {
+  background: white;
+  padding: 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: transform 0.08s;
+  &:hover {
+    transform: translateY(-2px);
+  }
+  h4 {
+    margin: 0 0 0.25rem 0;
+  }
+  .muted {
+    color: var(--color-primary-variant);
+    font-size: 0.9rem;
+    margin: 0.25rem 0;
+  }
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--color-primary-variant);
+    margin-top: 0.5rem;
+    align-items: center;
+  }
+}

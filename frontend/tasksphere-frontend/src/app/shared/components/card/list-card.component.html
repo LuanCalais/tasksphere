@@ -1,0 +1,7 @@
+<div class="project-card" [style.borderColor]="color()" (click)="onClick.emit()">
+  <h4>{{ title() }}</h4>
+  <p class="muted">{{ description() }}</p>
+  <div class="meta">
+    <ng-content></ng-content>
+  </div>
+</div>

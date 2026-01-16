@@ -8,13 +8,14 @@ import { HeaderComponent } from '@shared/components/header/header.component';
 import { TaskStatus } from '@core/models/task/enums';
 import { AVATAR_DEFAULT_IMAGE, PROJECT_STATUS_DEFINITION } from '@shared/constants';
 import { ProjectStatusDefinition } from '@shared/types/kanban';
+import { ListCardComponent } from '@shared/components/card/list-card.component';
 
 @Component({
   selector: 'kanban-board-page',
   standalone: true,
   templateUrl: './kanban-board.page.html',
   styleUrls: ['./kanban-board.page.scss'],
-  imports: [CommonModule, HeaderComponent],
+  imports: [CommonModule, HeaderComponent, ListCardComponent],
 })
 export class KanbanBoardPage implements OnInit {
   projects: Project[] = [];

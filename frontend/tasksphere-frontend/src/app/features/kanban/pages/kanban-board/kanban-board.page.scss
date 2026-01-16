@@ -28,51 +28,24 @@
       gap: 0.5rem;
     }
 
-    .project-card {
-      background: white;
-      padding: 0.75rem;
-      border-radius: 6px;
-      cursor: pointer;
-      border: 1px solid rgba(0, 0, 0, 0.04);
-      transition: transform 0.08s;
-      &:hover {
-        transform: translateY(-2px);
-      }
-      h4 {
-        margin: 0 0 0.25rem 0;
-      }
-      .muted {
-        color: var(--color-primary-variant);
-        font-size: 0.9rem;
-        margin: 0.25rem 0;
-      }
-      .meta {
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.8rem;
-        color: var(--color-primary-variant);
-        margin-top: 0.5rem;
-        align-items: center;
-        small {
-          display: flex;
-          align-items: center;
-          column-gap: 6px;
-          .avatar {
-            width: 26px;
-            height: 26px;
-            border-radius: 999px;
-            object-fit: cover;
-            flex: 0 0 26px;
-          }
-        }
-      }
-    }
-
     .empty {
       color: var(--color-primary-variant);
       font-size: 0.9rem;
       opacity: 0.8;
       padding: 0.5rem 0;
+    }
+  }
+
+  small {
+    display: flex;
+    align-items: center;
+    column-gap: 6px;
+    .avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      object-fit: cover;
+      flex: 0 0 26px;
     }
   }
 }
