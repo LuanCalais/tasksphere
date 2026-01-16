@@ -1,4 +1,6 @@
+import { ProjectStatus } from '@app/core/models/project/enums';
 import { TaskStatus } from '@core/models/task/enums';
+import { ProjectStatusDefinition } from '../types/kanban';
 
 export const HOME_PAGE_BANNERS = Object.freeze([
   { src: 'core-images/banners/banner-1.png', alt: 'Banner 1' },
@@ -31,12 +33,33 @@ export const TASK_STATUS_DEFINITION = Object.freeze({
     label: 'Em progresso',
     value: 'IN_PROGRESS',
     class: 'task-in-progress',
-    color: 'var(--color-information)',
-    background: 'var(--color-information-variant)',
   },
   [TaskStatus.DONE]: {
     label: 'Concluído',
     value: 'DONE',
     class: 'task-done',
+  },
+});
+
+export const PROJECT_STATUS_DEFINITION: Record<string, ProjectStatusDefinition> = Object.freeze({
+  [TaskStatus.TODO]: {
+    label: 'Não iniciado',
+    value: 'TODO',
+    color: 'var(--color-waiting)',
+  },
+  [TaskStatus.IN_PROGRESS]: {
+    label: 'Em progresso',
+    value: 'IN_PROGRESS',
+    color: 'var(--color-information)',
+  },
+  [ProjectStatus.CLOSE]: {
+    label: 'Encerrado',
+    value: 'CLOSE',
+    color: 'var(--color-error)',
+  },
+  [TaskStatus.DONE]: {
+    label: 'Concluído',
+    value: 'DONE',
+    color: 'var(--color-success)',
   },
 });

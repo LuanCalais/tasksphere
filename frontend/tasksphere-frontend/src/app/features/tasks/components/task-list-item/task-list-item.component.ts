@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, input } from '@angular/core';
-import { User } from '@app/core/models/user';
-import { AVATAR_DEFAULT_IMAGE } from '@app/shared/constants';
+import { User } from '@core/models/user';
+import { AVATAR_DEFAULT_IMAGE } from '@shared/constants';
 import { TaskStatus } from '@core/models/task/enums';
 import { TaskStatusComponent } from '@features/tasks/components/task-status/task-status.component';
 

@@ -8,13 +8,14 @@ import { ProjectsService } from '@features/projects/services';
 import { SkeletonComponent } from '@shared/components/skeleton/skeleton.component';
 import { CardComponent } from '@features/projects/components/card/card.component';
 import { ToastrService } from 'ngx-toastr';
+import { EmptyComponent } from '@shared/components/empty/empty.component';
 
 @Component({
   selector: 'app-projects-list-page',
   standalone: true,
   templateUrl: './projects-list.page.html',
   styleUrl: './projects-list.page.scss',
-  imports: [CommonModule, HeaderComponent, RouterLink, SkeletonComponent, CardComponent],
+  imports: [CommonModule, HeaderComponent, RouterLink, SkeletonComponent, CardComponent, EmptyComponent],
 })
 export class ProjectsListPage implements OnInit {
   projects: Project[] = [];
@@ -48,6 +49,10 @@ export class ProjectsListPage implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadProjects();
+  }
+
+  loadProjects(): void {
     this.loading = true;
     this.projectsService.getProjects().subscribe({
       next: (projects) => {

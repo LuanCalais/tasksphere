@@ -9,13 +9,14 @@ import { UsersService } from '@features/users/services';
 import { CardComponent } from '@features/users/components/card/card.component';
 import { AVATAR_DEFAULT_IMAGE } from '@shared/constants';
 import { ToastrService } from 'ngx-toastr';
+import { EmptyComponent } from '@shared/components/empty/empty.component';
 
 @Component({
   selector: 'app-users-list-page',
   standalone: true,
   templateUrl: './users-list.page.html',
   styleUrl: './users-list.page.scss',
-  imports: [CommonModule, HeaderComponent, RouterLink, SkeletonComponent, CardComponent],
+  imports: [CommonModule, HeaderComponent, RouterLink, SkeletonComponent, CardComponent, EmptyComponent],
 })
 export class UsersListPage implements OnInit {
   users: User[] = [];

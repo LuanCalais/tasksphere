@@ -1,0 +1,26 @@
+.empty-component-container {
+  background-color: var(--color-light);
+  min-height: 300px;
+  width: 100%;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .content {
+    text-align: center;
+
+    img {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 16px;
+    }
+
+    h4 {
+      margin: 0;
+      font-size: 1.25rem;
+      color: var(--color-primary);
+      font-weight: 500;
+    }
+  }
+}

@@ -1,1 +1,40 @@
-<div>Kanban Board Page Works</div>
+<div class="kanban-page">
+  <header-component
+    title="Kanban de Projetos"
+    subtitle="Clique no card para ver o Kanban de tasks do projeto"
+  ></header-component>
+
+  <div *ngIf="loading">Carregando...</div>
+  <div *ngIf="!loading && errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div class="kanban-columns" *ngIf="!loading && !errorMessage">
+    <div class="kanban-column" *ngFor="let status of columnsOrder">
+      <h3 class="column-title" [style.color]="getLabelForStatus(status).color">
+        {{ getLabelForStatus(status).label }}
+      </h3>
+      <div class="column-list">
+        <div
+          class="project-card"
+          [style.borderColor]="getLabelForStatus(status).color"
+          *ngFor="let p of columns[status]"
+          (click)="openProject(p)"
+        >
+          <h4>{{ p.name }}</h4>
+          <p class="muted">{{ p.description || 'Sem descrição' }}</p>
+          <div class="meta">
+            <small>
+              <img
+                class="avatar"
+                [src]="p.owner?.profilePictureUrl || avatarDefaultPath"
+                [alt]="p.owner?.name"
+              />
+              {{ p.owner?.name || '—' }}
+            </small>
+            <small>{{ p.tasks?.length || 0 }} tasks</small>
+          </div>
+        </div>
+        <div *ngIf="columns[status]?.length === 0" class="empty">Nenhum projeto</div>
+      </div>
+    </div>
+  </div>
+</div>
