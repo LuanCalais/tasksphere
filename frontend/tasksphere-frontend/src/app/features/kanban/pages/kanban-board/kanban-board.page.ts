@@ -7,7 +7,7 @@ import { ProjectStatus } from '@core/models/project/enums';
 import { HeaderComponent } from '@shared/components/header/header.component';
 import { TaskStatus } from '@core/models/task/enums';
 import { AVATAR_DEFAULT_IMAGE, PROJECT_STATUS_DEFINITION } from '@shared/constants';
-import { ProjectStatusDefinition } from '@shared/types/kanban';
+import { StatusDefinition } from '@shared/types/kanban';
 import { ListCardComponent } from '@shared/components/card/list-card.component';
 
 @Component({
@@ -70,7 +70,7 @@ export class KanbanBoardPage implements OnInit {
     }
   }
 
-  getLabelForStatus(status: ProjectStatus): ProjectStatusDefinition {
+  getLabelForStatus(status: ProjectStatus): StatusDefinition {
     return PROJECT_STATUS_DEFINITION[status];
   }
 

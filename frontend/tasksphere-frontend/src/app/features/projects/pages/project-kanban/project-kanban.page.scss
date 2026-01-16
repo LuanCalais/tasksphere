@@ -8,6 +8,7 @@
       align-items: flex-start;
       overflow-x: auto;
       padding-top: 1rem;
+      min-height: 300px;
     }
 
     .kanban-column {
@@ -36,6 +37,35 @@
       .task-actions .btn.small {
         font-size: 0.75rem;
         padding: 0.25rem 0.5rem;
+      }
+
+      .task-meta-container {
+        display: flex;
+        flex-direction: column;
+        row-gap: 8px;
+        align-items: flex-start;
+        width: 100%;
+        position: relative;
+
+        .avatar-container {
+          display: flex;
+          align-items: center;
+          column-gap: 6px;
+          padding-bottom: 32px;
+          .avatar {
+            width: 26px;
+            height: 26px;
+            border-radius: 999px;
+            object-fit: cover;
+            flex: 0 0 26px;
+          }
+        }
+
+        .task-actions {
+          position: absolute;
+          right: 0;
+          bottom: 0;
+        }
       }
     }
   }

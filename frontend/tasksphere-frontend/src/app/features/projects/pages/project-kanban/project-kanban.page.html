@@ -1,1 +1,49 @@
-<div>project kanban page works</div>
+<div class="project-kanban-page">
+  <header-component
+    [title]="project?.name || 'Projeto'"
+    [subtitle]="'Kanban de tasks'"
+  ></header-component>
+
+  <div *ngIf="loading">Carregando...</div>
+
+  <div *ngIf="!loading && project" class="kanban-area">
+    <div class="kanban-columns">
+      <div class="kanban-column" *ngFor="let status of columnsOrder">
+        <h3 [style.color]="getLabelForStatus(status).color">
+          {{ getLabelForStatus(status).label }}
+        </h3>
+        <div
+          cdkDropList
+          [cdkDropListData]="columns[status]"
+          class="task-list"
+          (cdkDropListDropped)="drop($event, status)"
+        >
+          <div *ngFor="let t of columns[status]" cdkDrag>
+            <list-card-component
+              [title]="t.title"
+              [color]="getLabelForStatus(status).color"
+              [description]="t.dueDate ? (t.dueDate | date : 'shortDate') : ''"
+              descriptionEmptyPlaceholder="Sem data de entrega definida"
+            >
+              <span class="task-meta-container">
+                <div class="task-meta">
+                  <small class="avatar-container">
+                    <img
+                      class="avatar"
+                      [src]="t.assignee?.profilePictureUrl || avatarDefaultPath"
+                      [alt]="t.assignee?.name"
+                    />
+                    {{ t.assignee?.name || '—' }}</small
+                  >
+                </div>
+                <div class="task-actions">
+                  <button class="btn small" (click)="advanceTaskStatus(t)">Avançar</button>
+                </div>
+              </span>
+            </list-card-component>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

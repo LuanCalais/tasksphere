@@ -32,7 +32,7 @@
 }
 
 /* ==================== CONTAINER PRINCIPAL ==================== */
-body{
+body {
   margin: 0;
   padding: 0;
 }
@@ -132,4 +132,19 @@ body{
 .btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* ==================== DRAG ==================== */
+.cdk-drag-preview .avatar,
+.cdk-drag-preview img.avatar {
+  width: 26px !important;
+  height: 26px !important;
+  object-fit: cover;
+  border-radius: 999px;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.6;
+  border: 1px dashed rgba(0, 0, 0, 0.08);
+  min-height: 48px;
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, output } from '@angular/core';
+import { Component, Input, input, output } from '@angular/core';
 
 @Component({
   selector: 'list-card-component',
@@ -9,8 +9,10 @@ import { Component, input, output } from '@angular/core';
   imports: [CommonModule],
 })
 export class ListCardComponent {
+  @Input() description: string | null = null;
   onClick = output<void>();
   title = input<string>('Sem titulo');
-  description = input<string>('Sem descrição');
+
+  descriptionEmptyPlaceholder = input<string>('Sem descrição');
   color = input<string>('');
 }

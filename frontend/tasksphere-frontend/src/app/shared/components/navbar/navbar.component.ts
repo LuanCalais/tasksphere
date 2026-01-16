@@ -21,8 +21,6 @@ export class NavbarComponent implements OnInit {
         route,
         isOpen: false,
       }));
-
-    console.log(this.navItems);
   }
 
   toggleDropdown(item: NavItem, event: Event): void {
