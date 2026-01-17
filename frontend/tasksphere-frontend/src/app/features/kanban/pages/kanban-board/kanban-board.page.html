@@ -2,7 +2,10 @@
   <header-component
     title="Kanban de Projetos"
     subtitle="Clique no card para ver o Kanban de tasks do projeto"
-  ></header-component>
+    iconPath="icons/kanban-icon.svg"
+    iconAlt="kanban-icon"
+  >
+  </header-component>
 
   <div *ngIf="loading">Carregando...</div>
   <div *ngIf="!loading && errorMessage" class="error">{{ errorMessage }}</div>
@@ -13,10 +16,7 @@
         {{ getLabelForStatus(status).label }}
       </h3>
       <div class="column-list">
-        <div
-          class="project-card"
-          *ngFor="let p of columns[status]"
-        >
+        <div class="project-card" *ngFor="let p of columns[status]">
           <list-card-component
             [title]="p.name"
             [description]="p.description"

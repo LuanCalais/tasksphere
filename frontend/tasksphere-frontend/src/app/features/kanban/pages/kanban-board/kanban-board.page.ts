@@ -9,6 +9,7 @@ import { TaskStatus } from '@core/models/task/enums';
 import { AVATAR_DEFAULT_IMAGE, PROJECT_STATUS_DEFINITION } from '@shared/constants';
 import { StatusDefinition } from '@shared/types/kanban';
 import { ListCardComponent } from '@shared/components/card/list-card.component';
+import { NavigationService } from '@app/core/services/navigation.service';
 
 @Component({
   selector: 'kanban-board-page',
@@ -35,7 +36,7 @@ export class KanbanBoardPage implements OnInit {
   constructor(
     private projectsService: ProjectsService,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {

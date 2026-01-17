@@ -1,4 +1,4 @@
-<div class="project-card" [style.borderColor]="color()" (click)="onClick.emit()">
+<div class="project-card" [style.borderColor]="color()" [style.borderTopColor]="borderTopColor()" [style.borderTopWidth.px]="borderTopColor() ? 4 : 1" (click)="onClick.emit()">
   <h4>{{ title() }}</h4>
   <p class="muted">{{ description || descriptionEmptyPlaceholder() }}</p>
   <div class="meta">

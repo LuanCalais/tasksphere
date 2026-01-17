@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  DragDropModule,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 import { Project } from '@core/models/project';
 import { TaskStatus } from '@core/models/task/enums';
 import { ActivatedRoute } from '@angular/router';
@@ -10,6 +15,8 @@ import { HeaderComponent } from '@shared/components/header/header.component';
 import { ListCardComponent } from '@shared/components/card/list-card.component';
 import { AVATAR_DEFAULT_IMAGE, TASK_STATUS_DEFINITION } from '@shared/constants';
 import { StatusDefinition } from '@shared/types/kanban';
+import { TasksService } from '@features/tasks/services';
+import { NavigationService } from '@core/services/navigation.service';
 
 @Component({
   selector: 'project-kanban-page',
@@ -19,6 +26,7 @@ import { StatusDefinition } from '@shared/types/kanban';
   imports: [CommonModule, DragDropModule, HeaderComponent, ListCardComponent],
 })
 export class ProjectKanbanPage implements OnInit {
+  TaskStatus = TaskStatus;
   projectId: string = '';
   project: Project | null = null;
   loading: boolean = false;
@@ -36,7 +44,9 @@ export class ProjectKanbanPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private projectsService: ProjectsService,
-    private cdr: ChangeDetectorRef
+    private tasksService: TasksService,
+    private cdr: ChangeDetectorRef,
+    public nav: NavigationService,
   ) {}
 
   ngOnInit(): void {
@@ -75,9 +85,44 @@ export class ProjectKanbanPage implements OnInit {
     });
   }
 
-  async drop(event: CdkDragDrop<any[]>, targetStatus: TaskStatus) {}
+  async drop(event: CdkDragDrop<any[]>, targetStatus: TaskStatus) {
+    const prevContainer = event.previousContainer;
+    const currContainer = event.container;
 
-  async advanceTaskStatus(task: any) {}
+    if (event.previousContainer.id === event.container.id) {
+      moveItemInArray(currContainer.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        prevContainer.data,
+        currContainer.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+
+      const moved = currContainer.data[event.currentIndex];
+
+      try {
+        await this.tasksService.updateTaskStatus(moved.id, targetStatus).toPromise();
+      } catch (e) {
+        console.error(e);
+        this.loadProject();
+      }
+    }
+  }
+
+  async advanceTaskStatus(task: any) {
+    const order = this.columnsOrder;
+    const idx = order.indexOf(task.status);
+    const next = idx < order.length - 1 ? order[idx + 1] : order[idx];
+    if (next === task.status) return;
+
+    try {
+      await this.tasksService.updateTaskStatus(task.id, next).toPromise();
+    } catch (e) {
+      console.error(e);
+      this.loadProject();
+    }
+  }
 
   getLabelForStatus(status: TaskStatus): StatusDefinition {
     return TASK_STATUS_DEFINITION[status];

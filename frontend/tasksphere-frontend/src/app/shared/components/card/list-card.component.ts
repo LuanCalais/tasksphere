@@ -14,5 +14,6 @@ export class ListCardComponent {
   title = input<string>('Sem titulo');
 
   descriptionEmptyPlaceholder = input<string>('Sem descrição');
+  borderTopColor = input<string | null>(null);
   color = input<string>('');
 }

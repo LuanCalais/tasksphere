@@ -1,8 +1,11 @@
 <div class="project-kanban-page">
   <header-component
     [title]="project?.name || 'Projeto'"
-    [subtitle]="'Kanban de tasks'"
-  ></header-component>
+    subtitle="Kanban de tasks"
+    iconPath="icons/kanban-icon.svg"
+    iconAlt="kanban-icon"
+  >
+  </header-component>
 
   <div *ngIf="loading">Carregando...</div>
 
@@ -14,15 +17,18 @@
         </h3>
         <div
           cdkDropList
+          [id]="status"
           [cdkDropListData]="columns[status]"
+          [cdkDropListConnectedTo]="columnsOrder"
           class="task-list"
           (cdkDropListDropped)="drop($event, status)"
         >
-          <div *ngFor="let t of columns[status]" cdkDrag>
+          <div *ngFor="let t of columns[status]" cdkDrag [cdkDragData]="t">
             <list-card-component
               [title]="t.title"
               [color]="getLabelForStatus(status).color"
-              [description]="t.dueDate ? (t.dueDate | date : 'shortDate') : ''"
+              [borderTopColor]="t.color"
+              [description]="t.dueDate ? (t.dueDate | date: 'shortDate') : ''"
               descriptionEmptyPlaceholder="Sem data de entrega definida"
             >
               <span class="task-meta-container">
@@ -37,7 +43,13 @@
                   >
                 </div>
                 <div class="task-actions">
-                  <button class="btn small" (click)="advanceTaskStatus(t)">Avançar</button>
+                  <button
+                    class="btn small"
+                    (click)="advanceTaskStatus(t)"
+                    [disabled]="t.status === TaskStatus.DONE"
+                  >
+                    Avançar
+                  </button>
                 </div>
               </span>
             </list-card-component>
