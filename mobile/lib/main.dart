@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:tasksphere_monitor/graphql/graphql_client.dart';
+import 'package:tasksphere_monitor/screens/projects_list_screen.dart';
 import 'package:tasksphere_monitor/screens/users_list_screen.dart';
 
 void main() async {
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(primarySwatch: Colors.indigo),
         routes: {
           '/': (c) => UsersListScreen(),
+          '/projects': (c) => ProjectsListScreen()
         },
       ),
     );

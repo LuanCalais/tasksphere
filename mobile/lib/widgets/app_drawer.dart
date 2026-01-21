@@ -16,8 +16,14 @@ class AppDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          DrawerHeader(
+          Container(
+            width: double.infinity,
             decoration: BoxDecoration(color: Color(0xFFe65f5c)),
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top + 20,
+                bottom: 20,
+                left: 20,
+                right: 20),
             child: Text(
               'TaskSphere Monitor',
               style: TextStyle(color: Colors.white, fontSize: 20),
