@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:tasksphere_monitor/models/user.dart';
 import 'package:tasksphere_monitor/services/graphql_service.dart';
+import 'package:tasksphere_monitor/widgets/app_drawer.dart';
 
 class UsersListScreen extends StatefulWidget {
   @override
@@ -21,7 +22,10 @@ class _UsersListScreenState extends State<UsersListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Usuários')),
+        appBar: AppBar(
+          title: const Text('Usuários'),
+        ),
+        drawer: const AppDrawer(),
         body: FutureBuilder<List<User>>(
             future: svc.fetchUsers(),
             builder: (context, snap) {

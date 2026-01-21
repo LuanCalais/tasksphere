@@ -1,0 +1,39 @@
+import 'package:flutter/material.dart';
+
+class AppDrawer extends StatelessWidget {
+  const AppDrawer({Key? key}) : super(key: key);
+
+  void _navigateTo(BuildContext context, String route) {
+    Navigator.of(context).pop();
+    final current = ModalRoute.of(context)?.settings.name;
+    if (current == route) return;
+    Navigator.of(context).pushReplacementNamed(route);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            decoration: BoxDecoration(color: Color(0xFFe65f5c)),
+            child: Text(
+              'TaskSphere Monitor',
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          ),
+          ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Usuários'),
+              onTap: () => _navigateTo(context, '/')),
+          ListTile(
+            leading: const Icon(Icons.work),
+            title: const Text('Projetos'),
+            onTap: () => _navigateTo(context, '/projects'),
+          )
+        ],
+      ),
+    );
+  }
+}
