@@ -23,8 +23,16 @@ class _ProjectsListScreenState extends State<ProjectsListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Projetos'),
-      ),
+          title: Row(
+        children: [
+          Icon(
+            Icons.folder,
+            size: 24,
+          ),
+          SizedBox(width: 6),
+          Text('Projetos')
+        ],
+      )),
       drawer: const AppDrawer(),
       body: FutureBuilder<List<Project>>(
         future: svc.fetchProjects(),

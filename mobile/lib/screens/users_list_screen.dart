@@ -23,7 +23,15 @@ class _UsersListScreenState extends State<UsersListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Usuários'),
+          title: Row(
+            children: [
+              Icon(Icons.person, size: 24),
+              SizedBox(
+                width: 6,
+              ),
+              Text('Usuários')
+            ],
+          ),
         ),
         drawer: const AppDrawer(),
         body: FutureBuilder<List<User>>(
