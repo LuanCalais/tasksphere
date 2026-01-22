@@ -1,5 +1,6 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:tasksphere_monitor/models/project.dart';
+import 'package:tasksphere_monitor/models/task.dart';
 import 'package:tasksphere_monitor/models/user.dart';
 
 class GraphqlService {
@@ -49,7 +50,20 @@ class GraphqlService {
   ''';
 
   static const String GET_TASKS_BY_PROJECT = r'''
-  
+      query TasksByProject($projectId: ID!) {
+      tasksByProject(projectId: $projectId) {
+        id
+        title
+        status
+        color
+        dueDate
+        assignee {
+          id
+          name
+          profilePictureUrl
+        }
+      }
+    }
   ''';
 
   Future<List<User>> fetchUsers() async {
@@ -66,5 +80,17 @@ class GraphqlService {
     if (res.hasException) throw res.exception!;
     final list = (res.data!['projects'] as List).cast<Map<String, dynamic>>();
     return list.map((json) => Project.fromJson(json)).toList();
+  }
+
+  Future<List<Task>> fetchTasksByProject(String projectId) async {
+    final res = await client.query(QueryOptions(
+        document: gql(GET_TASKS_BY_PROJECT),
+        variables: {'projectId': projectId},
+        fetchPolicy: FetchPolicy.networkOnly));
+
+    if (res.hasException) throw res.exception!;
+    final list =
+        (res.data!['tasksByProject'] as List).cast<Map<String, dynamic>>();
+    return list.map((json) => Task.fromJson(json)).toList();
   }
 }
