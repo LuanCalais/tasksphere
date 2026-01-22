@@ -6,6 +6,7 @@ export const resolvers = {
   Query: {
     ...userResolvers.Query,
     ...projectResolvers.Query,
+    ...taskResolvers.Query,
   },
   Mutation: {
     ...userResolvers.Mutation,

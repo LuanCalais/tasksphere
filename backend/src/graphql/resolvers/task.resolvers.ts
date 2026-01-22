@@ -2,11 +2,37 @@ import { ProjectStatus, TaskStatus } from "@prisma/client";
 import { PrismaClientContext } from "../features/prisma";
 
 export const taskResolvers = {
+  Query: {
+    tasksByProject: async (
+      _: unknown,
+      { projectId }: { projectId: string },
+      { prisma }: PrismaClientContext,
+    ) => {
+      try {
+        const id = Number(projectId);
+
+        if (Number.isNaN(id)) {
+          throw new Error("ID do projeto inválido");
+        }
+
+        const tasks = await prisma.task.findMany({
+          where: { projectId: id },
+          include: { assignee: true },
+        });
+
+        return tasks ?? [];
+      } catch (error) {
+        console.error("Error Query.tasksByProject:", error);
+        throw new Error("Não foi possível buscar as tasks do projeto");
+      }
+    },
+  },
+
   Mutation: {
     updateTaskStatus: async (
       _: unknown,
       { taskId, status }: { taskId: string; status: TaskStatus },
-      { prisma }: PrismaClientContext
+      { prisma }: PrismaClientContext,
     ) => {
       try {
         const id = Number(taskId);
@@ -46,7 +72,7 @@ export const taskResolvers = {
           const hasInProgressTasks = tasks.some(
             (t) =>
               t.status === TaskStatus.IN_PROGRESS ||
-              t.status === TaskStatus.DONE
+              t.status === TaskStatus.DONE,
           );
 
           const allTasksDone = tasks.every((t) => t.status === TaskStatus.DONE);

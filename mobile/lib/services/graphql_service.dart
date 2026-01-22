@@ -48,6 +48,10 @@ class GraphqlService {
   }
   ''';
 
+  static const String GET_TASKS_BY_PROJECT = r'''
+  
+  ''';
+
   Future<List<User>> fetchUsers() async {
     final res = await client.query(QueryOptions(
         document: gql(GET_USERS), fetchPolicy: FetchPolicy.networkOnly));

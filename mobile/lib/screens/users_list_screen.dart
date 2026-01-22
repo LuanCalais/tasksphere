@@ -25,7 +25,7 @@ class _UsersListScreenState extends State<UsersListScreen> {
         appBar: AppBar(
           title: Row(
             children: [
-              Icon(Icons.person, size: 24),
+              Icon(Icons.people_outline_rounded, size: 24),
               SizedBox(
                 width: 6,
               ),

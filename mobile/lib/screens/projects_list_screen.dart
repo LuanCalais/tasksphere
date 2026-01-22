@@ -26,7 +26,7 @@ class _ProjectsListScreenState extends State<ProjectsListScreen> {
           title: Row(
         children: [
           Icon(
-            Icons.folder,
+            Icons.work_outline_rounded,
             size: 24,
           ),
           SizedBox(width: 6),
@@ -47,7 +47,7 @@ class _ProjectsListScreenState extends State<ProjectsListScreen> {
                   title: Text(project?.name ?? 'Sem nome'),
                   subtitle: Text(project?.description ?? 'Sem descrição'),
                   trailing: Text('${project?.tasks.length} tasks'),
-                  onTap: () => Navigator.pushNamed(context, '/projects',
+                  onTap: () => Navigator.pushNamed(context, '/projects_tasks',
                       arguments: {
                         'projectId': project?.id.toString(),
                         'projectName': project?.name

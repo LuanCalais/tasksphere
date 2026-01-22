@@ -13,6 +13,7 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -30,11 +31,11 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-              leading: const Icon(Icons.person),
+              leading: const Icon(Icons.people_rounded),
               title: const Text('Usuários'),
               onTap: () => _navigateTo(context, '/')),
           ListTile(
-            leading: const Icon(Icons.work),
+            leading: const Icon(Icons.work_rounded),
             title: const Text('Projetos'),
             onTap: () => _navigateTo(context, '/projects'),
           )
