@@ -62,37 +62,37 @@ class _ProjectTaskScreenState extends State<ProjectTaskScreen> {
                 child: Text("No tasks found"),
               );
 
-            final headerRow = Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Descrição do projeto',
-                      style: TextStyle(
+            final headerRow = Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: AppColors.information, width: 1),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              width: double.infinity,
+              margin: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Descrição do projeto',
+                    style: TextStyle(
                         color: AppColors.information,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 6,
-                    ),
-                    Text(
-                      widget.projectDescription,
-                      softWrap: true,
-                    )
-                  ],
-                ));
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 6),
+                  Text(
+                    widget.projectDescription,
+                    softWrap: true,
+                  ),
+                ],
+              ),
+            );
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 headerRow,
-                Divider(
-                  height: 1,
-                ),
                 Expanded(
                     child: ListView.separated(
                         itemBuilder: (context, index) {
