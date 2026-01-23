@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
                 builder: (_) => ProjectTaskScreen(
                       projectId: args['projectId'] ?? '',
                       projectName: args['projectName'] ?? '',
+                      projectDescription: args['projectDescription'] ?? '',
                     ));
           }
           return null;

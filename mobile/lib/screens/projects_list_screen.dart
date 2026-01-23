@@ -45,12 +45,19 @@ class _ProjectsListScreenState extends State<ProjectsListScreen> {
                 debugPrint('ProjectsListScreen rebuild: ${project?.name}');
                 return ListTile(
                   title: Text(project?.name ?? 'Sem nome'),
-                  subtitle: Text(project?.description ?? 'Sem descrição'),
+                  subtitle: Expanded(
+                    child: Text(
+                      project?.description ?? 'Sem descrição',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
+                  ),
                   trailing: Text('${project?.tasks.length} tasks'),
                   onTap: () => Navigator.pushNamed(context, '/projects_tasks',
                       arguments: {
                         'projectId': project?.id.toString(),
-                        'projectName': project?.name
+                        'projectName': project?.name,
+                        'projectDescription': project?.description
                       }),
                 );
               });
