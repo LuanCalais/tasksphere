@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:tasksphere_monitor/models/project.dart';
 import 'package:tasksphere_monitor/services/graphql_service.dart';
+import 'package:tasksphere_monitor/utils/avatar_utils.dart';
 import 'package:tasksphere_monitor/widgets/app_drawer.dart';
 
 class ProjectsListScreen extends StatefulWidget {
@@ -17,15 +18,6 @@ class _ProjectsListScreenState extends State<ProjectsListScreen> {
     super.didChangeDependencies();
     final client = GraphQLProvider.of(context).value;
     svc = GraphqlService(client);
-  }
-
-  String _getImageProfile(dynamic owner) {
-    debugPrint('Owner: $owner');
-    final profilePictureUrl = owner?['profilePictureUrl'];
-    if (profilePictureUrl != null && profilePictureUrl is String) {
-      return profilePictureUrl;
-    }
-    return '';
   }
 
   @override
@@ -52,7 +44,7 @@ class _ProjectsListScreenState extends State<ProjectsListScreen> {
               itemBuilder: (context, i) {
                 final project = snap.data?[i];
 
-                final imageUrl = _getImageProfile(project?.owner);
+                final imageUrl = getImageProfile(project?.owner);
                 return ListTile(
                   title: Text(project?.name ?? 'Sem nome'),
                   subtitle: Container(
@@ -60,10 +52,13 @@ class _ProjectsListScreenState extends State<ProjectsListScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         CircleAvatar(
-                          radius: 14,
-                          backgroundImage:
-                              imageUrl != null ? NetworkImage(imageUrl) : null,
-                        ),
+                            radius: 14,
+                            backgroundImage: imageUrl.isNotEmpty
+                                ? NetworkImage(imageUrl)
+                                : null,
+                            child: imageUrl.isEmpty
+                                ? Text(project?.owner?['name']?[0] ?? '')
+                                : null),
                         SizedBox(width: 8),
                         Expanded(
                           child: Text(
