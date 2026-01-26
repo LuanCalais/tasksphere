@@ -19,6 +19,15 @@ class _ProjectsListScreenState extends State<ProjectsListScreen> {
     svc = GraphqlService(client);
   }
 
+  String _getImageProfile(dynamic owner) {
+    debugPrint('Owner: $owner');
+    final profilePictureUrl = owner?['profilePictureUrl'];
+    if (profilePictureUrl != null && profilePictureUrl is String) {
+      return profilePictureUrl;
+    }
+    return '';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,14 +51,28 @@ class _ProjectsListScreenState extends State<ProjectsListScreen> {
               separatorBuilder: (_, __) => const Divider(),
               itemBuilder: (context, i) {
                 final project = snap.data?[i];
-                debugPrint('ProjectsListScreen rebuild: ${project?.name}');
+
+                final imageUrl = _getImageProfile(project?.owner);
                 return ListTile(
                   title: Text(project?.name ?? 'Sem nome'),
-                  subtitle: Expanded(
-                    child: Text(
-                      project?.description ?? 'Sem descrição',
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
+                  subtitle: Container(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 14,
+                          backgroundImage:
+                              imageUrl != null ? NetworkImage(imageUrl) : null,
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            project?.description ?? 'Sem descrição',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   trailing: Text('${project?.tasks.length} tasks'),
