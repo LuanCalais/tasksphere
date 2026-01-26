@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
                       projectId: args['projectId'] ?? '',
                       projectName: args['projectName'] ?? '',
                       projectDescription: args['projectDescription'] ?? '',
+                      projectOwner: args['projectOwner'] ?? {},
                     ));
           }
           return null;

@@ -3,17 +3,20 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:tasksphere_monitor/models/task.dart';
 import 'package:tasksphere_monitor/services/graphql_service.dart';
 import 'package:tasksphere_monitor/theme/app_colors.dart';
+import 'package:tasksphere_monitor/utils/avatar_utils.dart';
 import 'package:tasksphere_monitor/widgets/app_status.dart';
 
 class ProjectTaskScreen extends StatefulWidget {
   final String projectId;
   final String projectName;
   final String projectDescription;
+  final dynamic projectOwner;
 
   const ProjectTaskScreen(
       {required this.projectId,
       required this.projectName,
       required this.projectDescription,
+      this.projectOwner,
       Key? key})
       : super(key: key);
 
@@ -61,7 +64,7 @@ class _ProjectTaskScreenState extends State<ProjectTaskScreen> {
               return Center(
                 child: Text("No tasks found"),
               );
-
+            final ownerImageUrl = getImageProfile(widget.projectOwner);
             final headerRow = Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
@@ -74,11 +77,26 @@ class _ProjectTaskScreenState extends State<ProjectTaskScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Descrição do projeto',
-                    style: TextStyle(
-                        color: AppColors.information,
-                        fontWeight: FontWeight.bold),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        radius: 16,
+                        backgroundImage: ownerImageUrl.isNotEmpty
+                            ? NetworkImage(ownerImageUrl)
+                            : null,
+                        child: ownerImageUrl.isEmpty
+                            ? Text(widget.projectOwner?['name']?[0] ?? '')
+                            : null,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        'Descrição do projeto',
+                        style: TextStyle(
+                            color: AppColors.information,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 6),
                   Text(
@@ -97,11 +115,28 @@ class _ProjectTaskScreenState extends State<ProjectTaskScreen> {
                     child: ListView.separated(
                         itemBuilder: (context, index) {
                           final t = tasks[index];
+                          final imageUrl = getImageProfile(t.assignee);
                           return ListTile(
                             title: Text(t.title),
-                            subtitle: AppStatus(
-                                statusValue: t.status.toString(),
-                                compact: true),
+                            subtitle: Container(
+                                child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                CircleAvatar(
+                                  radius: 14,
+                                  backgroundImage: imageUrl.isNotEmpty
+                                      ? NetworkImage(imageUrl)
+                                      : null,
+                                  child: imageUrl.isEmpty
+                                      ? Text(t.assignee?['name']?[0] ?? '')
+                                      : null,
+                                ),
+                                SizedBox(width: 8),
+                                AppStatus(
+                                    statusValue: t.status.toString(),
+                                    compact: true),
+                              ],
+                            )),
                             trailing: Container(
                               width: 16,
                               height: 16,

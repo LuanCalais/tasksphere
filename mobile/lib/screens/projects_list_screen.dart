@@ -75,7 +75,8 @@ class _ProjectsListScreenState extends State<ProjectsListScreen> {
                       arguments: {
                         'projectId': project?.id.toString(),
                         'projectName': project?.name,
-                        'projectDescription': project?.description
+                        'projectDescription': project?.description,
+                        'projectOwner': project?.owner,
                       }),
                 );
               });
